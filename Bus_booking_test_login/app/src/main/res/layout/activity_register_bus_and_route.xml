@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@android:color/white">
+
+    <!-- Title Text -->
+    <TextView
+        android:id="@+id/tv_register_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Provide Bus Details"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Bus name Field -->
+    <EditText
+        android:id="@+id/et_bus_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Bus Name"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Bus license Field -->
+    <EditText
+        android:id="@+id/et_license"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Bus License"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Number of seats Field -->
+    <EditText
+        android:id="@+id/et_no_of_seats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="No. of Seats"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Bus fee Field -->
+    <EditText
+        android:id="@+id/et_bus_fee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Bus fee"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Departure time Field -->
+    <EditText
+        android:id="@+id/et_departure_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Departure time"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Route Field -->
+    <EditText
+        android:id="@+id/et_route_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Route Name"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Starting point Field -->
+    <EditText
+        android:id="@+id/et_starting_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Starting Point"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Ending point Field -->
+    <EditText
+        android:id="@+id/et_ending_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ending Point"
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Sign Up Button -->
+    <Button
+        android:id="@+id/btn_register_driver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register Driver"
+        android:onClick="onRegisterDriverClicked"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -15,6 +15,9 @@
         <activity android:name=".ActivityRegisterSelect" />
         <activity android:name=".ActivityRegisterPassenger"/>
         <activity android:name=".ActivityPassengerHome"/>
+        <activity android:name=".ActivityRegisterBusOwner"/>
+        <activity android:name=".ActivityRegisterBusAndRoute"/>
+        <activity android:name=".ActivityRegisterDriver"/>
         <activity android:name=".ActivityLogin" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

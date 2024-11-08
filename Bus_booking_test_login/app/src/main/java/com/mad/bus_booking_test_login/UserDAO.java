@@ -41,11 +41,75 @@ public class UserDAO {
         return next_id;
     }
 
+    // Get the next Bus Owner ID
+    @SuppressLint("DefaultLocale")
+    public String getNextOwnerId() {
+        open();
+        String next_id = "O0001";
+        Cursor cursor = db.rawQuery("SELECT user_id FROM tbl_user WHERE user_id LIKE 'O%' ORDER BY user_id DESC LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            String last_id = cursor.getString(0);
+            int id = Integer.parseInt(last_id.substring(1)) + 1;
+            next_id = String.format("0%04d", id);
+        }
+        cursor.close();
+        return next_id;
+    }
+
+    // Get the next Driver ID
+    @SuppressLint("DefaultLocale")
+    public String getNextDriverId() {
+        open();
+        String next_id = "D0001";
+        Cursor cursor = db.rawQuery("SELECT user_id FROM tbl_user WHERE user_id LIKE 'D%' ORDER BY user_id DESC LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            String last_id = cursor.getString(0);
+            int id = Integer.parseInt(last_id.substring(1)) + 1;
+            next_id = String.format("D%04d", id);
+        }
+        cursor.close();
+        return next_id;
+    }
+
     // Insert new Passenger
     public boolean insertPassenger(String name, String email, String tel_no, String dob, String password) {
         open();
         ContentValues values = new ContentValues();
         values.put("user_id", getNextPassengerId());
+        values.put("name", name);
+        values.put("user_type", "Passenger");
+        values.put("tel_no", tel_no);
+        values.put("password", password);
+        values.put("email", email);
+        values.put("dob", dob);
+        values.put("profile_picture", "");
+
+        long result = db.insert("tbl_user", null, values);
+        return result != -1;
+    }
+
+    // Insert new Owner
+    public boolean insertOwner(String name, String email, String tel_no, String dob, String password) {
+        open();
+        ContentValues values = new ContentValues();
+        values.put("user_id", getNextOwnerId());
+        values.put("name", name);
+        values.put("user_type", "Passenger");
+        values.put("tel_no", tel_no);
+        values.put("password", password);
+        values.put("email", email);
+        values.put("dob", dob);
+        values.put("profile_picture", "");
+
+        long result = db.insert("tbl_user", null, values);
+        return result != -1;
+    }
+
+    // Insert new Driver
+    public boolean insertDriver(String name, String email, String tel_no, String dob, String password) {
+        open();
+        ContentValues values = new ContentValues();
+        values.put("user_id", getNextDriverId());
         values.put("name", name);
         values.put("user_type", "Passenger");
         values.put("tel_no", tel_no);
@@ -81,5 +145,19 @@ public class UserDAO {
         boolean isValidUser = cursor.getCount() > 0;
         cursor.close();
         return isValidUser;
+    }
+
+    //get the name of the logged user
+    public String getName(String email){
+        open(); // Ensure this method actually opens the database connection if needed
+        SQLiteDatabase db = db_helper.getReadableDatabase();
+        String logged_user_name = null;
+
+        Cursor cursor = db.rawQuery("SELECT name FROM tbl_user WHERE email = ?", new String[]{email});
+        if (cursor.moveToFirst()) { // Check if the cursor has at least one row
+            logged_user_name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+        }
+        cursor.close(); // Close the cursor to release resources
+        return logged_user_name;
     }
 }

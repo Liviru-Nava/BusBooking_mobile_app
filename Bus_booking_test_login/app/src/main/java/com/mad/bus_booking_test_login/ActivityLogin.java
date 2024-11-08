@@ -38,11 +38,13 @@ public class ActivityLogin extends AppCompatActivity {
         // Check if email and password are correct
         boolean isValidUser = user.validateUser(email, password);
         if (isValidUser) {
-            // Successful login
+            String userName = user.getName(email); // Retrieve the user's name
             Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(this, ActivityPassengerHome.class);
+            intent.putExtra("name", userName); // Pass the name to the next activity
             startActivity(intent);
-            finish(); // Optionally close the login activity
+            finish();
         } else {
             // Unsuccessful login
             Toast.makeText(this, "Login unsuccessful. Please try again.", Toast.LENGTH_SHORT).show();
