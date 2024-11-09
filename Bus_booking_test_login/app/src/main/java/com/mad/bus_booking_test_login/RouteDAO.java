@@ -6,11 +6,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class BusDAO {
+public class RouteDAO {
     private final DatabaseHelper db_helper;
     private SQLiteDatabase db;
 
-    public BusDAO(Context context) {
+    public RouteDAO(Context context) {
         this.db_helper = new DatabaseHelper(context);
     }
     // Open the database
@@ -26,39 +26,37 @@ public class BusDAO {
         }
     }
 
-    // Insert new Bus
-    public boolean insertBus(String route_id, String user_id, String bus_name, String bus_license, int no_of_seats, int bus_fee, String departure_time) {
+    // Insert new Route
+    public String insertRoute(String route_name, String starting_point, String ending_point) {
         open();
+        String route_id = getNextRouteId();
         ContentValues values = new ContentValues();
-        values.put("bus_id", getNextBusId());
         values.put("route_id", route_id);
-        values.put("user_id", user_id);
-        values.put("bus_name", bus_name);
-        values.put("bus_license", bus_license);
-        values.put("no_of_seats", no_of_seats);
-        values.put("bus_fee", bus_fee);
-        values.put("departure_time", departure_time);
+        values.put("route_name", route_name);
+        values.put("starting_point", starting_point);
+        values.put("ending_point", ending_point);
 
-        long result = db.insert("tbl_bus", null, values);
-        return result != -1;
+        long result = db.insert("tbl_route", null, values);
+        return result != -1 ? route_id : null;
     }
 
     @SuppressLint("DefaultLocale")
-    private String getNextBusId() {
+    private String getNextRouteId() {
         open();
-        String next_id = "B0001";
-        Cursor cursor = db.rawQuery("SELECT bus_id FROM tbl_bus WHERE bus_id LIKE 'B%' ORDER BY bus_id DESC LIMIT 1", null);
+        String next_id = "R0001";
+        Cursor cursor = db.rawQuery("SELECT route_id FROM tbl_route WHERE route_id LIKE 'R%' ORDER BY route_id DESC LIMIT 1", null);
         if (cursor.moveToFirst()) {
             String last_id = cursor.getString(0);
             int id = Integer.parseInt(last_id.substring(1)) + 1;
-            next_id = String.format("B%04d", id);
+            next_id = String.format("R%04d", id);
         }
         cursor.close();
         return next_id;
     }
-    //display all buses
-    public Cursor getAllBuses() {
+
+    //display all routes
+    public Cursor getAllRoutes() {
         open();
-        return db.rawQuery("SELECT * FROM tbl_bus", null);
+        return db.rawQuery("SELECT * FROM tbl_route", null);
     }
 }

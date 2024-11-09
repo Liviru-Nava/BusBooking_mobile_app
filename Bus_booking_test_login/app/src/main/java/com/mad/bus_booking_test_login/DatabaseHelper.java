@@ -145,8 +145,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //CREATE tbl_user USER TABLE
         String CREATE_USER_TABLE = "CREATE TABLE tbl_user (" +
                 "user_id TEXT PRIMARY KEY, " +
-                "name TEXT, user_type TEXT, " +
-                "tel_no TEXT, password TEXT, " +
+                "name TEXT, " +
+                "user_type TEXT, " +
+                "tel_no TEXT, " +
+                "password TEXT, " +
                 "email TEXT, " +
                 "dob TEXT, " +
                 "profile_picture TEXT);";
@@ -164,12 +166,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_BUS_TABLE = "CREATE TABLE tbl_bus (" +
                 "bus_id TEXT PRIMARY KEY, " +
                 "route_id TEXT, " +
+                "user_id TEXT, " +
                 "bus_name TEXT, " +
                 "bus_license TEXT, " +
                 "no_of_seats INTEGER, " +
                 "bus_fee INTEGER, " +
                 "departure_time TEXT, " +
-                "FOREIGN KEY(route_id) REFERENCES tbl_route(route_id));";
+                "FOREIGN KEY(route_id) REFERENCES tbl_route(route_id), " +
+                "FOREIGN KEY(user_id) REFERENCES tbl_user(user_id));";
         db.execSQL(CREATE_BUS_TABLE);
 
         //CREATE tbl_seat SEAT TABLE
@@ -225,5 +229,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS tbl_payment");
         db.execSQL("DROP TABLE IF EXISTS tbl_booking_seats");
         onCreate(db);
+    }
+
+    public void clearAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE tbl_bus");
+        db.execSQL("DROP TABLE tbl_route");
+        db.execSQL("DROP TABLE tbl_user");
+        // Repeat for any other tables
+        db.close();
     }
 }

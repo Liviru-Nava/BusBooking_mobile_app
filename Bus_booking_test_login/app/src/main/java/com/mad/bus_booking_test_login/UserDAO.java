@@ -94,7 +94,7 @@ public class UserDAO {
         ContentValues values = new ContentValues();
         values.put("user_id", getNextOwnerId());
         values.put("name", name);
-        values.put("user_type", "Passenger");
+        values.put("user_type", "Owner");
         values.put("tel_no", tel_no);
         values.put("password", password);
         values.put("email", email);
@@ -106,12 +106,13 @@ public class UserDAO {
     }
 
     // Insert new Driver
-    public boolean insertDriver(String name, String email, String tel_no, String dob, String password) {
+    public String insertDriver(String name, String email, String tel_no, String dob, String password) {
         open();
+        String driver_id = getNextDriverId();
         ContentValues values = new ContentValues();
-        values.put("user_id", getNextDriverId());
+        values.put("user_id", driver_id);
         values.put("name", name);
-        values.put("user_type", "Passenger");
+        values.put("user_type", "Driver");
         values.put("tel_no", tel_no);
         values.put("password", password);
         values.put("email", email);
@@ -119,7 +120,7 @@ public class UserDAO {
         values.put("profile_picture", "");
 
         long result = db.insert("tbl_user", null, values);
-        return result != -1;
+        return result != -1 ? driver_id : null;
     }
 
     // Check if email or phone number exists
