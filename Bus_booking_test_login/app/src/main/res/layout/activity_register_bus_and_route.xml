@@ -105,8 +105,8 @@
         android:id="@+id/btn_register_driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register Driver"
-        android:onClick="onRegisterDriverClicked"
+        android:text="Register Bus and Route"
+        android:onClick="onRegisterBusAndRouteClicked"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:textColor="@android:color/white" />
 

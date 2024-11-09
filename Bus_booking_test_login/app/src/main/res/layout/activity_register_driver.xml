@@ -13,7 +13,7 @@
         android:id="@+id/tv_register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tell us about yourself"
+        android:text="Tell us about yourself as a Driver"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -91,8 +91,8 @@
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up Here!"
-        android:onClick="onSignUpClicked"
+        android:text="Register Driver"
+        android:onClick="onRegisterDriverClicked"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:textColor="@android:color/white" />
 

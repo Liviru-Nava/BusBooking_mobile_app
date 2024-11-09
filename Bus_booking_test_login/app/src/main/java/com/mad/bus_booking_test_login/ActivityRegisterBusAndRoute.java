@@ -16,7 +16,11 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
     }
 
     //method called when register driver button is clicked
-    public void onRegisterDriverClicked(View view){
+    public void onRegisterBusAndRouteClicked(View view){
+        //logic to insert the bus and route details to the database
+
+
+        //move to the next UI to register the Driver
         Intent navigate_register_driver_intent = new Intent(this, ActivityRegisterDriver.class);
         startActivity(navigate_register_driver_intent);
     }
