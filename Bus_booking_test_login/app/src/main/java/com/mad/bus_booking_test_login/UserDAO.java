@@ -50,7 +50,7 @@ public class UserDAO {
         if (cursor.moveToFirst()) {
             String last_id = cursor.getString(0);
             int id = Integer.parseInt(last_id.substring(1)) + 1;
-            next_id = String.format("0%04d", id);
+            next_id = String.format("O%04d", id);
         }
         cursor.close();
         return next_id;

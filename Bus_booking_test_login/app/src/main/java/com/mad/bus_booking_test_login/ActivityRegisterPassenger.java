@@ -31,7 +31,7 @@ public class ActivityRegisterPassenger extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         user = new UserDAO(this);
 
-        displayAllUsers();
+//        displayAllUsers();
     }
 
     public void onSignUpClicked(View view) {
@@ -90,8 +90,8 @@ public class ActivityRegisterPassenger extends AppCompatActivity {
         }
         cursor.close();
 
-        TextView tvData = findViewById(R.id.tv_data);  // Ensure this TextView exists in your XML layout
-        tvData.setText(data.toString());
+//        TextView tvData = findViewById(R.id.tv_data);  // Ensure this TextView exists in your XML layout
+//        tvData.setText(data.toString());
     }
 
     @Override
