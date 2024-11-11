@@ -131,7 +131,6 @@
                 android:background="@android:color/darker_gray"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Select Date"
                 android:textColor="#4E342E"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>

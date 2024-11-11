@@ -27,10 +27,11 @@ public class BusDAO {
     }
 
     // Insert new Bus
-    public boolean insertBus(String route_id, String user_id, String bus_name, String bus_license, int no_of_seats, int bus_fee, String departure_time) {
+    public String insertBus(String route_id, String user_id, String bus_name, String bus_license, int no_of_seats, int bus_fee, String departure_time) {
         open();
         ContentValues values = new ContentValues();
-        values.put("bus_id", getNextBusId());
+        String bus_id = getNextBusId();
+        values.put("bus_id", bus_id);
         values.put("route_id", route_id);
         values.put("user_id", user_id);
         values.put("bus_name", bus_name);
@@ -40,7 +41,7 @@ public class BusDAO {
         values.put("departure_time", departure_time);
 
         long result = db.insert("tbl_bus", null, values);
-        return result != -1;
+        return result != -1 ? bus_id : null;
     }
 
     @SuppressLint("DefaultLocale")
@@ -61,4 +62,35 @@ public class BusDAO {
         open();
         return db.rawQuery("SELECT * FROM tbl_bus", null);
     }
+
+    //getAllBusDetailsForGivenRoute
+    public Cursor getBusesByRouteAndBookingDate(String startingPoint, String endingPoint, String booking_date) {
+        open();
+        String query = "SELECT \n" +
+                "    b.bus_name, \n" +
+                "    b.bus_license, \n" +
+                "    (b.no_of_seats - COALESCE(SUM(CASE WHEN bs.seat_status = 'booked' AND bs.booking_date = ? THEN 1 ELSE 0 END), 0)) AS no_of_seats_available,\n" +
+                "    b.bus_fee, \n" +
+                "    b.departure_time, \n" +
+                "    r.route_name, \n" +
+                "    r.starting_point, \n" +
+                "    r.ending_point\n" +
+                "FROM \n" +
+                "    tbl_bus b\n" +
+                "JOIN \n" +
+                "    tbl_route r ON b.route_id = r.route_id\n" +
+                "LEFT JOIN \n" +
+                "    tbl_booking_seats bs ON bs.seat_id IN (\n" +
+                "        SELECT seat_id FROM tbl_seat WHERE tbl_seat.bus_id = b.bus_id\n" +
+                "    )\n" +
+                "WHERE \n" +
+                "    r.starting_point = ? \n" +
+                "    AND r.ending_point = ? \n" +
+                "GROUP BY \n" +
+                "    b.bus_id, b.bus_name, b.bus_license, b.no_of_seats, b.bus_fee, b.departure_time, r.route_name, r.starting_point, r.ending_point\n" +
+                "HAVING \n" +
+                "    no_of_seats_available > 0";
+        return db.rawQuery(query, new String[]{booking_date, startingPoint, endingPoint});
+    }
+
 }

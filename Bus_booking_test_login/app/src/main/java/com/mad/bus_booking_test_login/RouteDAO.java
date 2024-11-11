@@ -6,6 +6,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RouteDAO {
     private final DatabaseHelper db_helper;
     private SQLiteDatabase db;
@@ -58,5 +61,34 @@ public class RouteDAO {
     public Cursor getAllRoutes() {
         open();
         return db.rawQuery("SELECT * FROM tbl_route", null);
+    }
+
+    //getRouteStartingPoint
+    public List<String> getDistinctStartingPoints() {
+        List<String> startingPoints = new ArrayList<>();
+        open();
+        Cursor cursor = db.rawQuery("SELECT DISTINCT starting_point FROM tbl_route", null);
+        if (cursor.moveToFirst()) {
+            do {
+                startingPoints.add(cursor.getString(0));  // Add starting point to the list
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return startingPoints;
+    }
+
+
+    //getRouteEndingPoint
+    public List<String> getDistinctEndingPoints() {
+        List<String> endingPoints = new ArrayList<>();
+        open();
+        Cursor cursor = db.rawQuery("SELECT DISTINCT ending_point FROM tbl_route", null);
+        if (cursor.moveToFirst()) {
+            do {
+                endingPoints.add(cursor.getString(0));  // Add ending point to the list
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return endingPoints;
     }
 }

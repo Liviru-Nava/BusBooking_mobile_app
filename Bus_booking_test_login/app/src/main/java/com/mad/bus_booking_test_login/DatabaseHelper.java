@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "bus_name TEXT, " +
                 "bus_license TEXT, " +
                 "no_of_seats INTEGER, " +
-                "bus_fee INTEGER, " +
+                "bus_fee INTEGER, " +   
                 "departure_time TEXT, " +
                 "FOREIGN KEY(route_id) REFERENCES tbl_route(route_id), " +
                 "FOREIGN KEY(user_id) REFERENCES tbl_user(user_id));";

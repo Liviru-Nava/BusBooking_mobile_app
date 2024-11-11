@@ -20,6 +20,8 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
     private EditText et_bus_name, et_license, et_no_of_seats, et_bus_fee, et_departure_time;
     private BusDAO bus;
 
+    private SeatDAO seat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,8 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
         et_bus_fee = findViewById(R.id.et_bus_fee);
         et_departure_time = findViewById(R.id.et_departure_time);
         bus = new BusDAO(this);
+
+        seat = new SeatDAO(this);
 
         displayAllBuses();
     }
@@ -77,9 +81,14 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
         int bus_fee = Integer.parseInt(et_bus_fee.getText().toString().trim());
         String departure_time = et_departure_time.getText().toString().trim();
 
-        boolean isRegistered = bus.insertBus(registered_route_id, user_id, bus_name, bus_license, no_of_seats, bus_fee, departure_time);
-        if(isRegistered){
-            Toast.makeText(this, "Bus registration successful!", Toast.LENGTH_SHORT).show();
+        String bus_id = bus.insertBus(registered_route_id, user_id, bus_name, bus_license, no_of_seats, bus_fee, departure_time);
+        if (bus_id != null) {
+            boolean seatsRegistered = seat.insertSeat(bus_id, no_of_seats);
+            if (seatsRegistered) {
+                Toast.makeText(this, "Bus registration and seat allocation successful!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Bus registration successful, but seat allocation failed!", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, "Bus registration failed, try again later!", Toast.LENGTH_SHORT).show();
         }

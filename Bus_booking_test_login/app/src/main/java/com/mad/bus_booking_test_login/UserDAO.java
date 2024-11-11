@@ -12,6 +12,7 @@ public class UserDAO {
 
     public UserDAO(Context context) {
         this.db_helper = new DatabaseHelper(context);
+        open();
     }
     // Open the database
     private void open() {
