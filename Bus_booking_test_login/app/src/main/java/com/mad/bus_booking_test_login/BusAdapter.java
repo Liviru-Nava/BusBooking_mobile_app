@@ -2,10 +2,12 @@ package com.mad.bus_booking_test_login;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +49,23 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
             holder.textRouteName.setText("Route: " + routeName);
             holder.textStartingPoint.setText(startingPoint);
             holder.textEndingPoint.setText(endingPoint);
+
+            // Set an OnClickListener for the "Book Now" button
+            holder.bookNowButton.setOnClickListener(v -> {
+                // Create an Intent to open ActivityBookSeat and pass data
+                Intent intent = new Intent(context, ActivityBookSeat.class);
+                intent.putExtra("bus_name", busName);
+                intent.putExtra("bus_license", licenseNumber);
+                intent.putExtra("no_of_seats_available", seatsAvailable);
+                intent.putExtra("bus_fee", busFee);
+                intent.putExtra("departure_time", departureTime);
+                intent.putExtra("route_name", routeName);
+                intent.putExtra("starting_point", startingPoint);
+                intent.putExtra("ending_point", endingPoint);
+
+                // Start ActivityBookSeat with the data
+                context.startActivity(intent);
+            });
         }
     }
 
@@ -57,6 +76,7 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
 
     static class BusViewHolder extends RecyclerView.ViewHolder {
         TextView textBusName, textLicenseNumber, textSeatsAvailable, textBusFee, textDepartureTime, textRouteName, textStartingPoint, textEndingPoint;
+        Button bookNowButton;
 
         public BusViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,6 +88,7 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
             textRouteName = itemView.findViewById(R.id.tv_route_name);
             textStartingPoint = itemView.findViewById(R.id.tv_starting_point);
             textEndingPoint = itemView.findViewById(R.id.tv_ending_point);
+            bookNowButton = itemView.findViewById(R.id.btn_book_now);
         }
     }
 }

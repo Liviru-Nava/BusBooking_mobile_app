@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Bus Name -->
+        <TextView
+            android:id="@+id/tv_bus_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bus Name:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_bus_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sample Bus Name"
+            android:paddingBottom="8dp" />
+
+        <!-- License Number -->
+        <TextView
+            android:id="@+id/tv_license_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="License Number:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_license"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sample License"
+            android:paddingBottom="8dp" />
+
+        <!-- Seats Available -->
+        <TextView
+            android:id="@+id/tv_seats_available_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seats Available:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_seats_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:paddingBottom="8dp" />
+
+        <!-- Bus Fee -->
+        <TextView
+            android:id="@+id/tv_fee_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bus Fee:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs. 0"
+            android:paddingBottom="8dp" />
+
+        <!-- Departure Time -->
+        <TextView
+            android:id="@+id/tv_departure_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Departure Time:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_departure_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:paddingBottom="8dp" />
+
+        <!-- Route Name -->
+        <TextView
+            android:id="@+id/tv_route_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Route Name:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sample Route"
+            android:paddingBottom="8dp" />
+
+        <!-- Starting Point -->
+        <TextView
+            android:id="@+id/tv_starting_point_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Starting Point:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_starting_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sample Starting Point"
+            android:paddingBottom="8dp" />
+
+        <!-- Ending Point -->
+        <TextView
+            android:id="@+id/tv_ending_point_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ending Point:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_ending_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sample Ending Point"
+            android:paddingBottom="8dp" />
+
+        <!-- Book Button -->
+        <Button
+            android:id="@+id/btn_confirm_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Booking"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>
