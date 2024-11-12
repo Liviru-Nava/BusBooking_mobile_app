@@ -74,11 +74,15 @@ public class BusDAO {
                 "    b.departure_time, \n" +
                 "    r.route_name, \n" +
                 "    r.starting_point, \n" +
-                "    r.ending_point\n" +
+                "    r.ending_point,\n" +
+                "    u.user_id,\n" +
+                "    u.name\n" +
                 "FROM \n" +
                 "    tbl_bus b\n" +
                 "JOIN \n" +
                 "    tbl_route r ON b.route_id = r.route_id\n" +
+                "JOIN \n" +
+                "    tbl_user u ON b.user_id = u.user_id  -- Assuming `tbl_bus` has `user_id` as a foreign key\n" +
                 "LEFT JOIN \n" +
                 "    tbl_booking_seats bs ON bs.seat_id IN (\n" +
                 "        SELECT seat_id FROM tbl_seat WHERE tbl_seat.bus_id = b.bus_id\n" +
@@ -87,7 +91,8 @@ public class BusDAO {
                 "    r.starting_point = ? \n" +
                 "    AND r.ending_point = ? \n" +
                 "GROUP BY \n" +
-                "    b.bus_id, b.bus_name, b.bus_license, b.no_of_seats, b.bus_fee, b.departure_time, r.route_name, r.starting_point, r.ending_point\n" +
+                "    b.bus_id, b.bus_name, b.bus_license, b.no_of_seats, b.bus_fee, b.departure_time, \n" +
+                "    r.route_name, r.starting_point, r.ending_point, u.user_id, u.name\n" +
                 "HAVING \n" +
                 "    no_of_seats_available > 0";
         return db.rawQuery(query, new String[]{booking_date, startingPoint, endingPoint});

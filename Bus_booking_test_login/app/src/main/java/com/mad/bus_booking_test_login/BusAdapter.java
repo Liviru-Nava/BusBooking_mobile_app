@@ -40,6 +40,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
             @SuppressLint("Range") String routeName = cursor.getString(cursor.getColumnIndex("route_name"));
             @SuppressLint("Range") String startingPoint = cursor.getString(cursor.getColumnIndex("starting_point"));
             @SuppressLint("Range") String endingPoint = cursor.getString(cursor.getColumnIndex("ending_point"));
+            @SuppressLint("Range") String userId = cursor.getString(cursor.getColumnIndex("user_id"));
+            @SuppressLint("Range") String userName = cursor.getString(cursor.getColumnIndex("name"));
 
             holder.textBusName.setText(busName);
             holder.textLicenseNumber.setText("License: " + licenseNumber);
@@ -62,6 +64,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
                 intent.putExtra("route_name", routeName);
                 intent.putExtra("starting_point", startingPoint);
                 intent.putExtra("ending_point", endingPoint);
+                intent.putExtra("user_id", userId);
+                intent.putExtra("name", userName);
 
                 // Start ActivityBookSeat with the data
                 context.startActivity(intent);
