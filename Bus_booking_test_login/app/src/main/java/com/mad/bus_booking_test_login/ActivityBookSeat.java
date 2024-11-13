@@ -3,6 +3,7 @@ package com.mad.bus_booking_test_login;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.GridLayout;
@@ -18,6 +19,7 @@ import java.util.Set;
 public class ActivityBookSeat extends AppCompatActivity {
 
     TextView tv_bus_name, tv_license, tv_seats_available, tv_fee, tv_route, tv_departure_time,tv_starting_point, tv_ending_point, tv_driver_name, tv_selected_seats;
+    SeatDAO seat;
 
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
@@ -38,18 +40,20 @@ public class ActivityBookSeat extends AppCompatActivity {
         tv_ending_point = findViewById(R.id.tv_ending_point);
         tv_driver_name = findViewById(R.id.tv_driver_name);
         tv_selected_seats = findViewById(R.id.tv_selected_seats);
+        seat = new SeatDAO(this);
 
         // Retrieve data from Intent
-        Intent intent = getIntent();
-        String busName = intent.getStringExtra("bus_name");
-        String licenseNumber = intent.getStringExtra("bus_license");
-        int seatsAvailable = intent.getIntExtra("no_of_seats_available", 0);
-        int busFee = intent.getIntExtra("bus_fee", 0);
-        String departureTime = intent.getStringExtra("departure_time");
-        String routeName = intent.getStringExtra("route_name");
-        String startingPoint = intent.getStringExtra("starting_point");
-        String endingPoint = intent.getStringExtra("ending_point");
-        String driverName = intent.getStringExtra("name");
+        String busId = getIntent().getStringExtra("bus_id");
+        String busName = getIntent().getStringExtra("bus_name");
+        String licenseNumber = getIntent().getStringExtra("bus_license");
+        int seatsAvailable = getIntent().getIntExtra("no_of_seats_available", 0);
+        int busFee = getIntent().getIntExtra("bus_fee", 0);
+        String departureTime = getIntent().getStringExtra("departure_time");
+        String routeName = getIntent().getStringExtra("route_name");
+        String startingPoint = getIntent().getStringExtra("starting_point");
+        String endingPoint = getIntent().getStringExtra("ending_point");
+        String driverName = getIntent().getStringExtra("name");
+        String bookingDate = getIntent().getStringExtra("booking_date");
 
         tv_bus_name.setText(busName);
         tv_license.setText(licenseNumber);
@@ -60,7 +64,49 @@ public class ActivityBookSeat extends AppCompatActivity {
         tv_starting_point.setText(startingPoint);
         tv_ending_point.setText(endingPoint);
         tv_driver_name.setText(driverName);
+
+        // Initialize the seats
+        initializeSeats();
+        loadBookedSeats(busId, bookingDate);
     }
+
+    //method to confirm booking
+    public void onConfirmBooking(View view){
+        String busName = getIntent().getStringExtra("bus_name");
+        String startingPoint = getIntent().getStringExtra("starting_point");
+        String endingPoint = getIntent().getStringExtra("ending_point");
+        String bookingDate = getIntent().getStringExtra("booking_date");
+        String routeName = getIntent().getStringExtra("route_name");
+        int busFee = getIntent().getIntExtra("bus_fee", 0);
+        String passengerId = getIntent().getStringExtra("passenger_id");
+        String busId = getIntent().getStringExtra("bus_id");
+
+        // Step 1: Get the number of seats selected
+        int seatsBookedCount = selectedSeats.size();
+
+        // Step 2: Retrieve seat IDs for the selected seats
+        List<String> seatIds = new ArrayList<>();
+        for (int seatNumber : selectedSeats) {
+            String seatId = seat.getSeatId(busId, seatNumber); // Retrieve seat_id for the bus and seat number
+            seatIds.add(seatId);
+        }
+
+        // Step 3: Pass values to ActivityPayment
+        Intent intent = new Intent(this, ActivityPayment.class);
+        intent.putExtra("bus_name", busName);
+        intent.putExtra("starting_point", startingPoint);
+        intent.putExtra("ending_point", endingPoint);
+        intent.putExtra("booking_date", bookingDate);
+        intent.putExtra("route_name", routeName);
+        intent.putExtra("bus_fee", busFee);
+        intent.putExtra("passenger_id", passengerId);
+        intent.putExtra("bus_id", busId);
+        intent.putExtra("seats_booked_count", seatsBookedCount);
+        intent.putStringArrayListExtra("seat_ids", new ArrayList<>(seatIds));
+
+        startActivity(intent);
+    }
+
 
     private void initializeSeats() {
         GridLayout gridLayout = findViewById(R.id.grid_seats);
@@ -78,32 +124,39 @@ public class ActivityBookSeat extends AppCompatActivity {
         }
     }
 
-    private void loadBookedSeats() {
-        // Example: Adding booked seats to bookedSeats set (in a real scenario, get these from the server)
-        bookedSeats.add(2); // Seat 3 is booked
-        bookedSeats.add(7); // Seat 8 is booked
-        bookedSeats.add(12); // Seat 13 is booked
+    private void loadBookedSeats(String busId, String bookingDate) {
+        // Fetch booked seats from SeatDAO
+        List<Integer> bookedSeatIndices = seat.getBookedSeats(busId, bookingDate);
 
-        // Update seat buttons to show booked seats in red
-        for (int index : bookedSeats) {
-            Button seatButton = seatButtons.get(index);
-            seatButton.setBackgroundColor(Color.RED);
-            seatButton.setEnabled(false); // Disable selection for booked seats
+        // If the list is empty, all seats are available, otherwise update booked seats
+        if (!bookedSeatIndices.isEmpty()) {
+            for (int index : bookedSeatIndices) {
+                Button seatButton = seatButtons.get(index);
+                seatButton.setBackgroundColor(Color.RED);
+                seatButton.setEnabled(false); // Disable selection for booked seats
+                bookedSeats.add(index); // Add to the bookedSeats set
+            }
         }
     }
 
     private void toggleSeatSelection(Button seatButton, int seatIndex) {
-        if (selectedSeats.contains(seatIndex)) {
+        // Seat numbers are 1-based, so add 1 to the index
+        int seatNumber = seatIndex + 1;
+
+        if (selectedSeats.contains(seatNumber)) {
             // Deselect seat
-            selectedSeats.remove(seatIndex);
+            selectedSeats.remove(seatNumber);
             seatButton.setBackgroundColor(Color.WHITE);
+            seatButton.setTextColor(Color.parseColor("#1149EB"));
         } else {
             // Select seat
-            selectedSeats.add(seatIndex);
+            selectedSeats.add(seatNumber);
             seatButton.setBackgroundColor(Color.GREEN);
+            seatButton.setTextColor(Color.WHITE);
         }
 
-        // Update TextView to display selected seats
-        tv_selected_seats.setText("Selected Seats: " + selectedSeats.toString());
+        // Update TextView to display selected seat numbers
+        tv_selected_seats.setText("Selected Seats: " + selectedSeats.toString().replaceAll("[\\[\\]]", ""));
     }
+
 }

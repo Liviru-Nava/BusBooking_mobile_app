@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -155,7 +156,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Confirm Booking"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:onClick="onConfirmBooking"/>
 
         </LinearLayout>
 
@@ -191,26 +193,40 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 1"/>
+                    android:text="Seat 1"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 2"/>
+                    android:text="Seat 2"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 3"/>
+                    android:text="Seat 3"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 4"/>
-
+                    android:text="Seat 4"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
 
 
                 <Button
@@ -218,25 +234,40 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 5"/>
+                    android:text="Seat 5"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 6"/>
+                    android:text="Seat 6"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 7"/>
+                    android:text="Seat 7"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 8"/>
+                    android:text="Seat 8"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
 
 
                 <Button
@@ -244,26 +275,40 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 9"/>
+                    android:text="Seat 9"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 10"/>
+                    android:text="Seat 10"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 11"/>
+                    android:text="Seat 11"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 12"/>
-
+                    android:text="Seat 12"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
 
 
                 <Button
@@ -271,25 +316,40 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 13"/>
+                    android:text="Seat 13"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 14"/>
+                    android:text="Seat 14"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 15"/>
+                    android:text="Seat 15"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
+
                 <Button
                     android:id="@+id/seat_16"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:text="Seat 16"/>
+                    android:text="Seat 16"
+                    android:textColor="#1149EB"
+                    app:strokeColor="#1149EB"
+                    app:strokeWidth="4dp" />
             </GridLayout>
         </LinearLayout>
     </LinearLayout>

@@ -33,11 +33,10 @@ public class ActivityBusList extends AppCompatActivity {
         recyclerViewBuses.setLayoutManager(new LinearLayoutManager(this));
         bus = new BusDAO(this);
 
-        Intent intent = getIntent();
-        String booking_date = intent.getStringExtra("selected_date");
-        String starting_point = intent.getStringExtra("starting_point");
-        String ending_point = intent.getStringExtra("ending_point");
-
+        String booking_date = getIntent().getStringExtra("selected_date");
+        String starting_point = getIntent().getStringExtra("starting_point");
+        String ending_point = getIntent().getStringExtra("ending_point");
+        String user_id = getIntent().getStringExtra("user_id");
         tv_starting_point.setText(starting_point);
         tv_ending_point.setText(ending_point);
 
@@ -51,12 +50,12 @@ public class ActivityBusList extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        loadBusesByRouteAndBookingDate(starting_point, ending_point, booking_date);
+        loadBusesByRouteAndBookingDate(starting_point, ending_point, booking_date, user_id);
     }
 
-    private void loadBusesByRouteAndBookingDate(String startingPoint, String endingPoint, String bookingDate) {
+    private void loadBusesByRouteAndBookingDate(String startingPoint, String endingPoint, String bookingDate, String userId) {
         Cursor cursor = bus.getBusesByRouteAndBookingDate(startingPoint, endingPoint, bookingDate);
-        busAdapter = new BusAdapter(this, cursor);
+        busAdapter = new BusAdapter(this, cursor, bookingDate, userId);
         recyclerViewBuses.setAdapter(busAdapter);
     }
 }

@@ -149,17 +149,19 @@ public class UserDAO {
         return isValidUser;
     }
 
-    //get the name of the logged user
-    public String getName(String email){
+    // Get both user_id and name
+    public String[] getUserDetails(String email){
         open(); // Ensure this method actually opens the database connection if needed
         SQLiteDatabase db = db_helper.getReadableDatabase();
-        String logged_user_name = null;
+        String[] userDetails = new String[2]; // Array to hold both user_id and name
+        Cursor cursor = db.rawQuery("SELECT user_id, name FROM tbl_user WHERE email = ?", new String[]{email});
 
-        Cursor cursor = db.rawQuery("SELECT name FROM tbl_user WHERE email = ?", new String[]{email});
         if (cursor.moveToFirst()) { // Check if the cursor has at least one row
-            logged_user_name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            // Get user_id and name
+            userDetails[0] = cursor.getString(cursor.getColumnIndexOrThrow("user_id"));
+            userDetails[1] = cursor.getString(cursor.getColumnIndexOrThrow("name"));
         }
         cursor.close(); // Close the cursor to release resources
-        return logged_user_name;
+        return userDetails; // Return the user_id and name as an array
     }
 }

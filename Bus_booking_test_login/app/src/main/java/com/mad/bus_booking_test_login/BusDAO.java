@@ -67,6 +67,7 @@ public class BusDAO {
     public Cursor getBusesByRouteAndBookingDate(String startingPoint, String endingPoint, String booking_date) {
         open();
         String query = "SELECT \n" +
+                "    b.bus_id, \n" +
                 "    b.bus_name, \n" +
                 "    b.bus_license, \n" +
                 "    (b.no_of_seats - COALESCE(SUM(CASE WHEN bs.seat_status = 'booked' AND bs.booking_date = ? THEN 1 ELSE 0 END), 0)) AS no_of_seats_available,\n" +

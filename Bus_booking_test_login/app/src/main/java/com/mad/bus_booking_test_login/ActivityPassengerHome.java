@@ -46,10 +46,14 @@ public class ActivityPassengerHome extends AppCompatActivity {
         String starting_point = spinner_starting_point.getSelectedItem().toString();
         String ending_point = spinner_ending_point.getSelectedItem().toString();
 
+        //get the user_id from the ActivityLogin.class
+        String userId = getIntent().getStringExtra("user_id");
+
         Intent navigate_bus_list_intent = new Intent(this, ActivityBusList.class);
         navigate_bus_list_intent.putExtra("selected_date", selected_date);
         navigate_bus_list_intent.putExtra("starting_point", starting_point);
         navigate_bus_list_intent.putExtra("ending_point", ending_point);
+        navigate_bus_list_intent.putExtra("user_id", userId);
         startActivity(navigate_bus_list_intent);
     }
 
