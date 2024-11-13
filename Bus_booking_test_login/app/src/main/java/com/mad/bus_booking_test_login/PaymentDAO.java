@@ -44,6 +44,7 @@ public class PaymentDAO {
 
     // Method to generate a unique payment ID in the format PAY1, PAY2, etc.
     private String generatePaymentId() {
+        open();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM tbl_payment", null);
         cursor.moveToFirst();
         int count = cursor.getInt(0);

@@ -87,8 +87,10 @@ public class ActivityPayment extends AppCompatActivity {
         String paymentMethod = "Card"; // or retrieve dynamically based on user's choice
         payment.insertPayment(bookingId, passengerId, paymentMethod, totalFee);
 
+        //Display message to mention booking successful
         Toast.makeText(this, "Booking successful!", Toast.LENGTH_LONG).show();
 
+        //Navigate to the passenger's home page
         Intent navigate_passenger_home_intent = new Intent(this, ActivityPassengerHome.class);
         startActivity(navigate_passenger_home_intent);
     }
