@@ -206,6 +206,7 @@
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#32CD32"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:onClick="onPayNowClicked"/>
     </LinearLayout>
 </RelativeLayout>
