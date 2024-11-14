@@ -19,6 +19,7 @@ public class ActivityPassengerHome extends AppCompatActivity {
     private EditText et_booking_date;
     private Spinner spinner_starting_point, spinner_ending_point;
     RouteDAO route;
+    private String name, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class ActivityPassengerHome extends AppCompatActivity {
         route = new RouteDAO(this);
 
         //set the name received from Intent
-        String name = getIntent().getStringExtra("name");
+        name = getIntent().getStringExtra("name");
         tv_name.setText(name);
 
         //initialize spinners with route values
@@ -55,6 +56,18 @@ public class ActivityPassengerHome extends AppCompatActivity {
         navigate_bus_list_intent.putExtra("ending_point", ending_point);
         navigate_bus_list_intent.putExtra("user_id", userId);
         startActivity(navigate_bus_list_intent);
+    }
+
+    //navigate to booking list
+    public void onNavigateBookingList(View view){
+        //get the user_id from the ActivityLogin.class
+        userId = getIntent().getStringExtra("user_id");
+        name = getIntent().getStringExtra("name");
+
+        Intent navigate_booking_list = new Intent(this, ActivityBookingList.class);
+        navigate_booking_list.putExtra("user_id", userId);
+        navigate_booking_list.putExtra("name", name);
+        startActivity(navigate_booking_list);
     }
 
     private void loadStartingPoints() {

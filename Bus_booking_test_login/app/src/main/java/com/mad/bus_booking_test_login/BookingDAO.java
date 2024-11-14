@@ -66,4 +66,29 @@ public class BookingDAO {
         cursor.close();
         return "BOOK" + (count + 1);
     }
+
+    public Cursor getBookingsFromUserId(String userId) {
+        open();
+        String query = "SELECT \n" +
+                "    b.bus_name, \n" +
+                "    r.route_name, \n" +
+                "    d.user_id AS driver_id, \n" +
+                "    d.name AS driver_name,\n" +
+                "    r.starting_point, \n" +
+                "    r.ending_point, \n" +
+                "    bk.booking_date\n" +
+                "FROM \n" +
+                "    tbl_booking bk\n" +
+                "JOIN \n" +
+                "    tbl_bus b ON bk.bus_id = b.bus_id\n" +
+                "JOIN \n" +
+                "    tbl_route r ON b.route_id = r.route_id\n" +
+                "JOIN \n" +
+                "    tbl_user d ON b.user_id = d.user_id\n" +
+                "JOIN \n" +
+                "    tbl_user p ON bk.user_id = p.user_id\n" +
+                "WHERE \n" +
+                "    p.user_id = ? \n";
+        return db.rawQuery(query, new String[]{userId});
+    }
 }
