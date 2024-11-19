@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder>{
     private final Context context;
     private final Cursor cursor;
+    private final String userId;
 
-    public BookingAdapter(Context context, Cursor cursor) {
+    public BookingAdapter(Context context, Cursor cursor, String userId) {
         this.context = context;
         this.cursor = cursor;
+        this.userId = userId;
     }
 
     @NonNull
@@ -32,12 +34,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
     @Override
     public void onBindViewHolder(@NonNull BookingAdapter.BookingViewHolder holder, int position) {
         if (cursor.moveToPosition(position)) {
+            @SuppressLint("Range") String busId = cursor.getString(cursor.getColumnIndex("bus_id"));
             @SuppressLint("Range") String busName = cursor.getString(cursor.getColumnIndex("bus_name"));
             @SuppressLint("Range") String routeName = cursor.getString(cursor.getColumnIndex("route_name"));
             @SuppressLint("Range") String driverName = cursor.getString(cursor.getColumnIndex("driver_name"));
             @SuppressLint("Range") String startingPoint = cursor.getString(cursor.getColumnIndex("starting_point"));
             @SuppressLint("Range") String endingPoint = cursor.getString(cursor.getColumnIndex("ending_point"));
             @SuppressLint("Range") String bookingDate = cursor.getString(cursor.getColumnIndex("booking_date"));
+            @SuppressLint("Range") String bookingId = cursor.getString(cursor.getColumnIndex("booking_id"));
 
 
             holder.textBusName.setText(busName);
@@ -46,27 +50,24 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             holder.textStartingPoint.setText(startingPoint);
             holder.textEndingPoint.setText(endingPoint);
             holder.textBookingDate.setText("Date: " + bookingDate);
-//            // Set an OnClickListener for the "Book Now" button
-//            holder.bookNowButton.setOnClickListener(v -> {
-//                // Create an Intent to open ActivityBookSeat and pass data
-//                Intent intent = new Intent(context, ActivityBookSeat.class);
-//                intent.putExtra("bus_id", busId);
-//                intent.putExtra("bus_name", busName);
-//                intent.putExtra("bus_license", licenseNumber);
-//                intent.putExtra("no_of_seats_available", seatsAvailable);
-//                intent.putExtra("bus_fee", busFee);
-//                intent.putExtra("departure_time", departureTime);
-//                intent.putExtra("route_name", routeName);
-//                intent.putExtra("starting_point", startingPoint);
-//                intent.putExtra("ending_point", endingPoint);
-//                intent.putExtra("user_id", userId);
-//                intent.putExtra("name", userName);
-//                intent.putExtra("booking_date", booking_date);
-//                intent.putExtra("passenger_id", passenger_id);
-//
-//                // Start ActivityBookSeat with the data
-//                context.startActivity(intent);
-//            });
+
+            // Set an OnClickListener for the "Book Now" button
+            holder.changeButton.setOnClickListener(v -> {
+                // Create an Intent to open ActivityBookSeat and pass data
+                Intent intent = new Intent(context, ActivityChangeSeat.class);
+                intent.putExtra("bus_id", busId);
+                intent.putExtra("user_id", userId);
+                intent.putExtra("booking_id", bookingId);
+                intent.putExtra("bus_name", busName);
+                intent.putExtra("route_name", routeName);
+                intent.putExtra("driver_name", driverName);
+                intent.putExtra("starting_point", startingPoint);
+                intent.putExtra("ending_point", endingPoint);
+                intent.putExtra("booking_date", bookingDate);
+
+                // Start ActivityBookSeat with the data
+                context.startActivity(intent);
+            });
         }
     }
 

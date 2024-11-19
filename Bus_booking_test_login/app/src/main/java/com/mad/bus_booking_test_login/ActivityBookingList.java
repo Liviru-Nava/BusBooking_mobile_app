@@ -37,7 +37,7 @@ public class ActivityBookingList extends AppCompatActivity {
     }
     private void getBookingsFromUserId(String userId) {
         Cursor cursor = booking.getBookingsFromUserId(userId);
-        bookingAdapter = new BookingAdapter(this, cursor);
+        bookingAdapter = new BookingAdapter(this, cursor, userId);
         recyclerViewBookings.setAdapter(bookingAdapter);
     }
 }
