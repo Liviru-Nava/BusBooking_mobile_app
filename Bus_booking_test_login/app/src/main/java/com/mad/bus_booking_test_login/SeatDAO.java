@@ -99,4 +99,100 @@ public class SeatDAO {
         cursor.close();
         return seatId;
     }
+
+    public boolean isSeatBookedByUser(int seatNumber, String bookingId) {
+        String query = "SELECT bs.seat_id " +
+                "FROM tbl_booking_seats bs " +
+                "JOIN tbl_seat s ON bs.seat_id = s.seat_id " +
+                "WHERE bs.booking_id = ? AND s.seat_number = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{bookingId, String.valueOf(seatNumber)});
+
+        boolean isBooked = cursor.moveToFirst(); // If there's a result, the seat belongs to the user
+        cursor.close();
+        return isBooked;
+    }
+
+    public void sendSeatSwapRequest(String userId, String bookingId, ArrayList<Integer> requestedSeats) {
+        // Get the user who booked the requested seats
+        String seatNumbers = requestedSeats.toString().replaceAll("[\\[\\]]", ""); // Format seat numbers
+        String notificationQuery = "SELECT u.user_id, u.name, bs.booking_id " +
+                "FROM tbl_booking_seats bs " +
+                "JOIN tbl_seat s ON bs.seat_id = s.seat_id " +
+                "JOIN tbl_booking b ON bs.booking_id = b.booking_id " +
+                "JOIN tbl_user u ON b.user_id = u.user_id " +
+                "WHERE s.seat_number IN (" + seatNumbers + ") AND bs.booking_id != ?";
+
+        Cursor cursor = db.rawQuery(notificationQuery, new String[]{bookingId});
+
+        while (cursor.moveToNext()) {
+            String recipientUserId = cursor.getString(0);
+            String recipientName = cursor.getString(1);
+
+            // Simulate notification (e.g., via a notification table or third-party service)
+            ContentValues values = new ContentValues();
+            values.put("recipient_id", recipientUserId);
+            values.put("sender_id", userId);
+            values.put("message", "User " + userId + " has requested a swap for seats: " + seatNumbers);
+
+            // Log message (replace with actual notification system if available)
+            System.out.println("Notification sent to: " + recipientName + " (User ID: " + recipientUserId + ")");
+        }
+        cursor.close();
+    }
+
+    public boolean swapSeats(String bookingId, ArrayList<String> newSeats) {
+        // Fetch seat IDs for the new seats
+        String seatNumbers = newSeats.toString().replaceAll("[\\[\\]]", ""); // Format seat numbers for SQL query
+        String seatIdQuery = "SELECT seat_id FROM tbl_seat WHERE seat_number IN (" + seatNumbers + ")";
+        Cursor cursor = db.rawQuery(seatIdQuery, null);
+
+        List<Integer> newSeatIds = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            newSeatIds.add(cursor.getString(cursor.getColumnIndex("seat_id")));
+        }
+        cursor.close();
+
+        // Ensure the correct number of seats were selected
+        if (newSeatIds.size() != newSeats.size()) {
+            return false; // Not all selected seats exist
+        }
+
+        // Fetch the current seat assignments for the booking
+        String currentSeatQuery = "SELECT seat_id FROM tbl_booking_seats WHERE booking_id = ?";
+        Cursor currentCursor = db.rawQuery(currentSeatQuery, new String[]{bookingId});
+
+        List<Integer> currentSeatIds = new ArrayList<>();
+        while (currentCursor.moveToNext()) {
+            currentSeatIds.add(currentCursor.getInt(0));
+        }
+        currentCursor.close();
+
+        // Check if the number of current seats matches the new seats
+        if (currentSeatIds.size() != newSeatIds.size()) {
+            return false; // Number of seats mismatch
+        }
+
+        // Update the seat assignments
+        boolean allUpdated = true;
+        for (int i = 0; i < currentSeatIds.size(); i++) {
+            int currentSeatId = currentSeatIds.get(i);
+            int newSeatId = newSeatIds.get(i);
+
+            ContentValues values = new ContentValues();
+            values.put("seat_id", newSeatId); // Update to new seat ID
+
+            int rowsAffected = db.update(
+                    "tbl_booking_seats",
+                    values,
+                    "booking_id = ? AND seat_id = ?",
+                    new String[]{bookingId, String.valueOf(currentSeatId)}
+            );
+
+            if (rowsAffected == 0) {
+                allUpdated = false; // Update failed for a seat
+            }
+        }
+
+        return allUpdated;
+    }
 }

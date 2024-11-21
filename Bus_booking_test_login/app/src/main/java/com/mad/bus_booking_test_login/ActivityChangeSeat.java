@@ -24,7 +24,8 @@ public class ActivityChangeSeat extends AppCompatActivity {
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
     private Set<Integer> selectedSeats = new HashSet<>();
-    private boolean isSwapMode = true; // Default mode is swapping
+    private Set<Integer> alreadyBookedSeats = new HashSet<>();
+    private int seatsToSwap = 0; // Default mode is swapping
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,18 +67,6 @@ public class ActivityChangeSeat extends AppCompatActivity {
         initializeSeats();
         loadBookedSeats(busId, bookingDate);
 
-
-        // Toggle modes
-        btn_confirm_swap.setOnClickListener(view -> {
-            isSwapMode = true;
-            Toast.makeText(this, "Swap Mode Enabled", Toast.LENGTH_SHORT).show();
-        });
-
-        btn_request_swap.setOnClickListener(view -> {
-            isSwapMode = false;
-            Toast.makeText(this, "Request Swap Mode Enabled", Toast.LENGTH_SHORT).show();
-        });
-
     }
 
     private void initializeSeats() {
@@ -92,7 +81,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
             seatButton.setBackgroundColor(Color.WHITE); // Initially all seats are available (white)
 
             // Set a click listener for each seat to handle selection
-            seatButton.setOnClickListener(view -> handleSeatSelection(seatButton, seatIndex));
+            seatButton.setOnClickListener(view -> toggleSeatSelection(seatButton, seatIndex));
         }
     }
     private void loadBookedSeats(String busId, String bookingDate) {
@@ -100,19 +89,17 @@ public class ActivityChangeSeat extends AppCompatActivity {
         List<Integer> bookedSeatIndices = seat.getBookedSeats(busId, bookingDate);
 
         // If the list is empty, all seats are available, otherwise update booked seats
-//        if (!bookedSeatIndices.isEmpty()) {
-//            for (int index : bookedSeatIndices) {
-//                Button seatButton = seatButtons.get(index);
-//                seatButton.setBackgroundColor(Color.RED);
-//                seatButton.setEnabled(false); // Disable selection for booked seats
-//                bookedSeats.add(index); // Add to the bookedSeats set
-//            }
-//        }
         if (!bookedSeatIndices.isEmpty()) {
             for (int index : bookedSeatIndices) {
                 Button seatButton = seatButtons.get(index);
                 seatButton.setBackgroundColor(Color.RED);
-                bookedSeats.add(index);
+                bookedSeats.add(index); // Add to the bookedSeats set
+
+                if (seat.isSeatBookedByUser(index + 1, bookingId)) {
+                    seatButton.setEnabled(false);
+                } else {
+                    alreadyBookedSeats.add(index);
+                }
             }
         }
     }
@@ -126,9 +113,16 @@ public class ActivityChangeSeat extends AppCompatActivity {
             seatButton.setBackgroundColor(Color.WHITE);
             seatButton.setTextColor(Color.parseColor("#1149EB"));
         } else {
-            // Select seat
+            if (selectedSeats.size() >= seatsToSwap) {
+                Toast.makeText(this, "You can only select " + seatsToSwap + " seats.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             selectedSeats.add(seatNumber);
-            seatButton.setBackgroundColor(Color.GREEN);
+            if (alreadyBookedSeats.contains(seatIndex)) {
+                seatButton.setBackgroundColor(Color.parseColor("#FFA500")); // Orange for already booked seats
+            } else {
+                seatButton.setBackgroundColor(Color.GREEN);
+            }
             seatButton.setTextColor(Color.WHITE);
         }
 
@@ -136,50 +130,26 @@ public class ActivityChangeSeat extends AppCompatActivity {
         tv_selected_seats.setText("Selected Seats: " + selectedSeats.toString().replaceAll("[\\[\\]]", ""));
     }
 
+    private void confirmSeatChange() {
+        if (selectedSeats.size() != seatsToSwap) {
+            Toast.makeText(this, "Please select exactly " + seatsToSwap + " seats.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-
-
-
-
-    //-----------swapping part for testing------------------
-
-    private void handleSeatSelection(Button seatButton, int seatIndex) {
-        if (isSwapMode) {
-            handleSwapMode(seatButton, seatIndex);
+        if (alreadyBookedSeats.stream().anyMatch(index -> selectedSeats.contains(index + 1))) {
+            // Notify user for a seat swap request
+            seat.sendSeatSwapRequest(userId, bookingId, new ArrayList<>(selectedSeats));
+            Toast.makeText(this, "Swap request sent to the other passenger.", Toast.LENGTH_LONG).show();
         } else {
-            handleRequestSwap(seatIndex);
+            // Perform direct seat swap
+            boolean success = seat.swapSeats(bookingId, new ArrayList<String>(selectedSeats));
+            if (success) {
+                Toast.makeText(this, "Seats successfully changed.", Toast.LENGTH_LONG).show();
+                finish(); // Close the activity
+            } else {
+                Toast.makeText(this, "Failed to update seats. Try again.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    private void handleSwapMode(Button seatButton, int seatIndex) {
-        int seatNumber = seatIndex + 1;
-
-        if (selectedSeats.contains(seatNumber)) {
-            // Deselect seat
-            selectedSeats.remove(seatNumber);
-            seatButton.setBackgroundColor(Color.WHITE);
-        } else {
-            selectedSeats.add(seatNumber);
-            seatButton.setBackgroundColor(Color.GREEN);
-        }
-
-        // Update TextView
-        tv_selected_seats.setText("Selected Seats: " + selectedSeats.toString());
-    }
-
-    private void handleRequestSwap(int seatIndex) {
-        if (bookedSeats.contains(seatIndex)) {
-            int seatNumber = seatIndex + 1;
-            Toast.makeText(this, "Request sent for Seat " + seatNumber, Toast.LENGTH_SHORT).show();
-            // Simulate sending a request
-            sendSwapRequest(seatNumber);
-        } else {
-            Toast.makeText(this, "Select a booked seat to send a swap request.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void sendSwapRequest(int seatNumber) {
-        // Logic to send a notification or request (can be expanded with server-side implementation)
-        System.out.println("Request sent for seat swap to seat: " + seatNumber);
-    }
 }
