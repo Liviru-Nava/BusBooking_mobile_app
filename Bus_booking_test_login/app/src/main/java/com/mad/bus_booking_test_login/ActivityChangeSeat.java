@@ -18,8 +18,7 @@ import java.util.Set;
 public class ActivityChangeSeat extends AppCompatActivity {
 
     TextView tv_bus_name, tv_route_name, tv_booking_date, tv_starting_point, tv_ending_point, tv_driver_name, tv_selected_seats;
-    String userId, bookingId;
-    Button btn_confirm_swap, btn_request_swap;
+    String userId, bookingId, busId, bookingDate;
     SeatDAO seat;
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
@@ -40,12 +39,10 @@ public class ActivityChangeSeat extends AppCompatActivity {
         tv_driver_name = findViewById(R.id.tv_driver_name);
         tv_selected_seats = findViewById(R.id.tv_selected_seats);
 
-        btn_confirm_swap = findViewById(R.id.btn_confirm_swap);
-        btn_request_swap = findViewById(R.id.btn_request_swap);
 
         seat = new SeatDAO(this);
 
-        String busId = getIntent().getStringExtra("bus_id");
+        busId = getIntent().getStringExtra("bus_id");
         String busName = getIntent().getStringExtra("bus_name");
         String routeName = getIntent().getStringExtra("route_name");
         String startingPoint = getIntent().getStringExtra("starting_point");
@@ -53,7 +50,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
         String driverName = getIntent().getStringExtra("driver_name");
         userId = getIntent().getStringExtra("user_id");
         bookingId = getIntent().getStringExtra("booking_id");
-        String bookingDate = getIntent().getStringExtra("booking_date");
+        bookingDate = getIntent().getStringExtra("booking_date");
 
 
         tv_bus_name.setText(busName);
@@ -63,9 +60,15 @@ public class ActivityChangeSeat extends AppCompatActivity {
         tv_ending_point.setText(endingPoint);
         tv_driver_name.setText(driverName);
 
+        // Load initially booked seats and determine how many seats to swap
+        seatsToSwap = seat.getBookedSeatsForBooking(bookingId).size();
+
         //initialise the seats
         initializeSeats();
         loadBookedSeats(busId, bookingDate);
+
+        // Handle seat change confirmation
+        findViewById(R.id.btn_confirm_seat_change).setOnClickListener(view -> confirmSeatChange());
 
     }
 
@@ -84,6 +87,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
             seatButton.setOnClickListener(view -> toggleSeatSelection(seatButton, seatIndex));
         }
     }
+
     private void loadBookedSeats(String busId, String bookingDate) {
         // Fetch booked seats from SeatDAO
         List<Integer> bookedSeatIndices = seat.getBookedSeats(busId, bookingDate);
@@ -95,7 +99,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
                 seatButton.setBackgroundColor(Color.RED);
                 bookedSeats.add(index); // Add to the bookedSeats set
 
-                if (seat.isSeatBookedByUser(index + 1, bookingId)) {
+                if (seat.isSeatBookedByUser(index + 1, bookingId, busId)) {
                     seatButton.setEnabled(false);
                 } else {
                     alreadyBookedSeats.add(index);
@@ -103,6 +107,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
             }
         }
     }
+
     private void toggleSeatSelection(Button seatButton, int seatIndex) {
         // Seat numbers are 1-based, so add 1 to the index
         int seatNumber = seatIndex + 1;
@@ -113,6 +118,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
             seatButton.setBackgroundColor(Color.WHITE);
             seatButton.setTextColor(Color.parseColor("#1149EB"));
         } else {
+            // Select seat
             if (selectedSeats.size() >= seatsToSwap) {
                 Toast.makeText(this, "You can only select " + seatsToSwap + " seats.", Toast.LENGTH_SHORT).show();
                 return;
@@ -138,11 +144,11 @@ public class ActivityChangeSeat extends AppCompatActivity {
 
         if (alreadyBookedSeats.stream().anyMatch(index -> selectedSeats.contains(index + 1))) {
             // Notify user for a seat swap request
-            seat.sendSeatSwapRequest(userId, bookingId, new ArrayList<>(selectedSeats));
+            seat.sendSeatSwapRequest(userId, bookingId, new ArrayList<>(selectedSeats), busId, bookingDate);
             Toast.makeText(this, "Swap request sent to the other passenger.", Toast.LENGTH_LONG).show();
         } else {
             // Perform direct seat swap
-            boolean success = seat.swapSeats(bookingId, new ArrayList<String>(selectedSeats));
+            boolean success = seat.swapSeats(bookingId, new ArrayList<>(selectedSeats), busId, bookingDate);
             if (success) {
                 Toast.makeText(this, "Seats successfully changed.", Toast.LENGTH_LONG).show();
                 finish(); // Close the activity
@@ -151,5 +157,4 @@ public class ActivityChangeSeat extends AppCompatActivity {
             }
         }
     }
-
 }

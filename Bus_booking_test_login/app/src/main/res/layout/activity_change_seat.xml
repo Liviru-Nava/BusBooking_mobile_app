@@ -104,17 +104,10 @@
 
             <!-- Book Button -->
             <Button
-                android:id="@+id/btn_confirm_swap"
+                android:id="@+id/btn_confirm_seat_change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Swap Seats"
-                android:layout_marginTop="8dp" />
-
-            <Button
-                android:id="@+id/btn_request_swap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Request Seat Swap"
+                android:text="Confirm swap seat"
                 android:layout_marginTop="8dp" />
 
 
