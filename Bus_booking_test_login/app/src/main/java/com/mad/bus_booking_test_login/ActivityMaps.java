@@ -20,7 +20,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
@@ -30,6 +29,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback {
@@ -96,7 +97,7 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(endLatLng).title("Ending Point"));
 
             //focus the camera a bit on the starting point
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLatLng, 50));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLatLng, 15));
 
             // Fetch and draw the route
             drawRoute(startLatLng, endLatLng);
@@ -184,4 +185,5 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, "Google Maps is not installed.", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
