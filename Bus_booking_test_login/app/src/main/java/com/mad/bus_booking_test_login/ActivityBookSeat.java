@@ -20,6 +20,7 @@ public class ActivityBookSeat extends AppCompatActivity {
 
     TextView tv_bus_name, tv_license, tv_seats_available, tv_fee, tv_route, tv_departure_time,tv_starting_point, tv_ending_point, tv_driver_name, tv_selected_seats;
     SeatDAO seat;
+    String startingPoint, endingPoint;
 
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
@@ -50,8 +51,8 @@ public class ActivityBookSeat extends AppCompatActivity {
         int busFee = getIntent().getIntExtra("bus_fee", 0);
         String departureTime = getIntent().getStringExtra("departure_time");
         String routeName = getIntent().getStringExtra("route_name");
-        String startingPoint = getIntent().getStringExtra("starting_point");
-        String endingPoint = getIntent().getStringExtra("ending_point");
+        startingPoint = getIntent().getStringExtra("starting_point");
+        endingPoint = getIntent().getStringExtra("ending_point");
         String driverName = getIntent().getStringExtra("name");
         String bookingDate = getIntent().getStringExtra("booking_date");
 
@@ -157,6 +158,13 @@ public class ActivityBookSeat extends AppCompatActivity {
 
         // Update TextView to display selected seat numbers
         tv_selected_seats.setText("Selected Seats: " + selectedSeats.toString().replaceAll("[\\[\\]]", ""));
+    }
+
+    public void onShowMap(View view){
+        Intent navigate_map_intent = new Intent(this, ActivityMaps.class);
+        navigate_map_intent.putExtra("starting_point", startingPoint);
+        navigate_map_intent.putExtra("ending_point", endingPoint);
+        startActivity(navigate_map_intent);
     }
 
 }

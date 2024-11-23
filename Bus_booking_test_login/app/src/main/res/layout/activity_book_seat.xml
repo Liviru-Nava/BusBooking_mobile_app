@@ -105,6 +105,12 @@
                 android:text="Sample Route"
                 android:paddingBottom="8dp" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show on map"
+                android:onClick="onShowMap"/>
+
             <!-- Starting Point -->
             <TextView
                 android:id="@+id/tv_starting_point_label"

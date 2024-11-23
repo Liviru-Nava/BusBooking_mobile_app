@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bus_booking_test_login</string>
+    <string name="title_activity_maps">ActivityMaps</string>
 </resources>
