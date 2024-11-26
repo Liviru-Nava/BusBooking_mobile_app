@@ -166,4 +166,26 @@ public class UserDAO {
         cursor.close(); // Close the cursor to release resources
         return userDetails; // Return the user_id and name as an array
     }
+
+    // Get all from user by id
+    public Cursor getUserById(String user_id){
+        open();
+        SQLiteDatabase db = db_helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tbl_user WHERE user_id = ?", new String[]{user_id});
+        return cursor;
+    }
+
+    // Update the specific user's name
+    public boolean updateUserDetails(String userId, String name, String telNo, String email, String dob){
+        open();
+        SQLiteDatabase db = db_helper.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put("name", name);
+        content.put("tel_no", telNo);
+        content.put("email", email);
+        content.put("dob", dob);
+
+        int rowsAffected = db.update("tbl_user", content, "user_id = ?", new String[]{userId});
+        return rowsAffected > 0;
+    }
 }

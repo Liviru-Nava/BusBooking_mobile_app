@@ -53,6 +53,8 @@
         <activity android:name=".ui.ActivityPayment" />
         <activity android:name=".ui.ActivityBookingList" />
         <activity android:name=".ui.ActivityChangeSeat" />
+        <activity android:name=".ui.ActivityUserProfile"/>
+        <activity android:name=".ui.ActivityEditProfile"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

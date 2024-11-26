@@ -39,6 +39,10 @@ public class ActivityPassengerHome extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         tv_name.setText(name);
 
+        //get the user_id from the ActivityLogin.class
+        userId = getIntent().getStringExtra("user_id");
+        name = getIntent().getStringExtra("name");
+
         //initialize spinners with route values
         loadStartingPoints();
         loadEndingPoints();
@@ -63,14 +67,18 @@ public class ActivityPassengerHome extends AppCompatActivity {
 
     //navigate to booking list
     public void onNavigateBookingList(View view){
-        //get the user_id from the ActivityLogin.class
-        userId = getIntent().getStringExtra("user_id");
-        name = getIntent().getStringExtra("name");
-
         Intent navigate_booking_list = new Intent(this, ActivityBookingList.class);
         navigate_booking_list.putExtra("user_id", userId);
         navigate_booking_list.putExtra("name", name);
         startActivity(navigate_booking_list);
+    }
+
+    //navigate to the user profile
+    public void onNavigateUserProfile(View view){
+        Intent navigate_user_profile = new Intent(this, ActivityUserProfile.class);
+        navigate_user_profile.putExtra("user_id", userId);
+        navigate_user_profile.putExtra("name", name);
+        startActivity(navigate_user_profile);
     }
 
     private void loadStartingPoints() {

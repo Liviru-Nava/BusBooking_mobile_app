@@ -72,6 +72,6 @@
         android:text="Save your details"
         android:onClick="onSignUpClicked"
         android:backgroundTint="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>

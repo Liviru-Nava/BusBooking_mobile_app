@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingBottom="12dp"
     android:background="@drawable/gradient_background">
 
     <!-- Top Welcome Section with Name and Profile Picture -->
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:paddingLeft="12dp"
         android:gravity="center_vertical">
 
         <!-- Welcome Text -->
@@ -42,7 +42,7 @@
         android:orientation="vertical"
         android:background="@android:color/white"
         android:padding="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         android:elevation="4dp"
         android:clipToOutline="true"
         android:layout_gravity="bottom"
@@ -226,8 +226,8 @@
                 android:layout_height="wrap_content"
                 android:text="User"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:onClick="onNavigateUserProfile"/>
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>
