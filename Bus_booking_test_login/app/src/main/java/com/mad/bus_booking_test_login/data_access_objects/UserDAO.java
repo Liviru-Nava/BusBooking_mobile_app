@@ -75,7 +75,7 @@ public class UserDAO {
     }
 
     // Insert new Passenger
-    public boolean insertPassenger(String name, String email, String tel_no, String dob, String password) {
+    public boolean insertPassenger(String name, String email, String tel_no, String dob, String password, byte[] defaultProfilePicture) {
         open();
         ContentValues values = new ContentValues();
         values.put("user_id", getNextPassengerId());
@@ -85,14 +85,14 @@ public class UserDAO {
         values.put("password", password);
         values.put("email", email);
         values.put("dob", dob);
-        values.put("profile_picture", "");
+        values.put("profile_picture", defaultProfilePicture);
 
         long result = db.insert("tbl_user", null, values);
         return result != -1;
     }
 
     // Insert new Owner
-    public boolean insertOwner(String name, String email, String tel_no, String dob, String password) {
+    public boolean insertOwner(String name, String email, String tel_no, String dob, String password, byte[] defaultProfilePicture) {
         open();
         ContentValues values = new ContentValues();
         values.put("user_id", getNextOwnerId());
@@ -109,7 +109,7 @@ public class UserDAO {
     }
 
     // Insert new Driver
-    public String insertDriver(String name, String email, String tel_no, String dob, String password) {
+    public String insertDriver(String name, String email, String tel_no, String dob, String password, byte[] defaultProfilePicture) {
         open();
         String driver_id = getNextDriverId();
         ContentValues values = new ContentValues();

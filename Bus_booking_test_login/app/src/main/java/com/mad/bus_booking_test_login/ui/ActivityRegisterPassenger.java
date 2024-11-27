@@ -3,6 +3,8 @@ package com.mad.bus_booking_test_login.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mad.bus_booking_test_login.R;
 import com.mad.bus_booking_test_login.data_access_objects.UserDAO;
+
+import java.io.ByteArrayOutputStream;
 
 public class ActivityRegisterPassenger extends AppCompatActivity {
 
@@ -32,8 +36,6 @@ public class ActivityRegisterPassenger extends AppCompatActivity {
         et_dob = findViewById(R.id.et_dob);
         et_password = findViewById(R.id.et_password);
         user = new UserDAO(this);
-
-//        displayAllUsers();
     }
 
     public void onSignUpClicked(View view) {
@@ -59,7 +61,10 @@ public class ActivityRegisterPassenger extends AppCompatActivity {
             return;
         }
 
-        boolean isInserted = user.insertPassenger(name, email, telNo, dob, password);
+        // Convert default image to byte array
+        byte[] defaultProfilePicture = getDefaultProfilePicture();
+
+        boolean isInserted = user.insertPassenger(name, email, telNo, dob, password, defaultProfilePicture);
         if (isInserted) {
             Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
             finish();
@@ -68,32 +73,12 @@ public class ActivityRegisterPassenger extends AppCompatActivity {
         }
     }
 
-    private void displayAllUsers() {
-        Cursor cursor = user.getAllUsers();
-        StringBuilder data = new StringBuilder();
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String userId = cursor.getString(cursor.getColumnIndex("user_id"));
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
-                @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
-                @SuppressLint("Range") String userType = cursor.getString(cursor.getColumnIndex("user_type"));
-                @SuppressLint("Range") String telNo = cursor.getString(cursor.getColumnIndex("tel_no"));
-                @SuppressLint("Range") String dob = cursor.getString(cursor.getColumnIndex("dob"));
-
-                data.append("User ID: ").append(userId)
-                        .append("\nName: ").append(name)
-                        .append("\nEmail: ").append(email)
-                        .append("\nUser Type: ").append(userType)
-                        .append("\nTelephone: ").append(telNo)
-                        .append("\nDOB: ").append(dob)
-                        .append("\n\n");
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-//        TextView tvData = findViewById(R.id.tv_data);  // Ensure this TextView exists in your XML layout
-//        tvData.setText(data.toString());
+    // Convert the default profile picture to byte array
+    private byte[] getDefaultProfilePicture() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+        return outputStream.toByteArray();
     }
 
     @Override

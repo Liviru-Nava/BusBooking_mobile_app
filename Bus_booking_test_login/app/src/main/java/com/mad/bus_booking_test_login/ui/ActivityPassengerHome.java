@@ -2,6 +2,7 @@ package com.mad.bus_booking_test_login.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -47,6 +48,7 @@ public class ActivityPassengerHome extends AppCompatActivity {
         loadStartingPoints();
         loadEndingPoints();
 
+        Log.e("User Id", "User_id is " + userId );
     }
     //search bus logic
     public void onSearchBus(View view){
@@ -78,6 +80,7 @@ public class ActivityPassengerHome extends AppCompatActivity {
         Intent navigate_user_profile = new Intent(this, ActivityUserProfile.class);
         navigate_user_profile.putExtra("user_id", userId);
         navigate_user_profile.putExtra("name", name);
+        Log.e("Passed User_id", userId);
         startActivity(navigate_user_profile);
     }
 

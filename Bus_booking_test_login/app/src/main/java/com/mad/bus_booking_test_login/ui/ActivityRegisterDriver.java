@@ -1,6 +1,8 @@
 package com.mad.bus_booking_test_login.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mad.bus_booking_test_login.R;
 import com.mad.bus_booking_test_login.data_access_objects.UserDAO;
+
+import java.io.ByteArrayOutputStream;
 
 public class ActivityRegisterDriver extends AppCompatActivity {
     private EditText et_name, et_email, et_tel_no, et_dob, et_password;
@@ -68,7 +72,10 @@ public class ActivityRegisterDriver extends AppCompatActivity {
             return null;
         }
 
-        String driver_id = user.insertDriver(name, email, telNo, dob, password);
+        // Convert default image to byte array
+        byte[] defaultProfilePicture = getDefaultProfilePicture();
+
+        String driver_id = user.insertDriver(name, email, telNo, dob, password, defaultProfilePicture);
         if (driver_id != null) {
             Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
             finish();
@@ -76,5 +83,13 @@ public class ActivityRegisterDriver extends AppCompatActivity {
             Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
         }
         return driver_id;
+    }
+
+    // Convert the default profile picture to byte array
+    private byte[] getDefaultProfilePicture() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+        return outputStream.toByteArray();
     }
 }

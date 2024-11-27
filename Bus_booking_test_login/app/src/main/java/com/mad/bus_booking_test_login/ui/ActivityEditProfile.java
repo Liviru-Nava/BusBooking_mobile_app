@@ -2,9 +2,12 @@ package com.mad.bus_booking_test_login.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +18,10 @@ import com.mad.bus_booking_test_login.data_access_objects.UserDAO;
 public class ActivityEditProfile extends AppCompatActivity {
 
     private String userId, name, telephoneNumber, email, dob, newName, newTelNo, newEmail, newDOB;
+    private byte[] user_image;
+    Bitmap profileImage;
     EditText et_name, et_email, et_telephone, et_dob;
+    ImageView profile_image;
     UserDAO user;
 
     @Override
@@ -33,6 +39,7 @@ public class ActivityEditProfile extends AppCompatActivity {
         et_email = findViewById(R.id.et_email);
         et_telephone = findViewById(R.id.et_telephone);
         et_dob = findViewById(R.id.et_dob);
+        profile_image = findViewById(R.id.image_view);
 
         //get all the values to display to the edit profile page
         getUserById(userId);
@@ -45,11 +52,16 @@ public class ActivityEditProfile extends AppCompatActivity {
             telephoneNumber = cursor.getString(3);
             email = cursor.getString(5);
             dob = cursor.getString(6);
+            user_image = cursor.getBlob(7);
         }
         et_name.setText(name);
         et_telephone.setText(telephoneNumber);
         et_email.setText(email);
         et_dob.setText(dob);
+        if(user_image != null){
+            profileImage = BitmapFactory.decodeByteArray(user_image, 0, user_image.length);
+            profile_image.setImageBitmap(profileImage);
+        }
     }
 
     public void onSignUpClicked(View view){

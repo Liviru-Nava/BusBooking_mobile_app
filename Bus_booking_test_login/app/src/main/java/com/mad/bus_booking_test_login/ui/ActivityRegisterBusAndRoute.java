@@ -48,8 +48,6 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
         bus = new BusDAO(this);
 
         seat = new SeatDAO(this);
-
-        displayAllBuses();
     }
 
     //method called when register driver button is clicked
@@ -97,37 +95,5 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Bus registration failed, try again later!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void displayAllBuses() {
-        Cursor cursor = bus.getAllBuses();
-        StringBuilder data = new StringBuilder();
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String busId = cursor.getString(cursor.getColumnIndex("bus_id"));
-                @SuppressLint("Range") String driverId = cursor.getString(cursor.getColumnIndex("user_id"));
-                @SuppressLint("Range") String routeId = cursor.getString(cursor.getColumnIndex("route_id"));
-                @SuppressLint("Range") String busName = cursor.getString(cursor.getColumnIndex("bus_name"));
-                @SuppressLint("Range") String busLicense = cursor.getString(cursor.getColumnIndex("bus_license"));
-                @SuppressLint("Range") String noOfSeat = cursor.getString(cursor.getColumnIndex("no_of_seats"));
-                @SuppressLint("Range") String busFee = cursor.getString(cursor.getColumnIndex("bus_fee"));
-                @SuppressLint("Range") String departureTime = cursor.getString(cursor.getColumnIndex("departure_time"));
-
-                data.append("Bus ID: ").append(busId)
-                        .append("\nDriver ID: ").append(driverId)
-                        .append("\nRoute ID: ").append(routeId)
-                        .append("\nBus name: ").append(busName)
-                        .append("\nBus License: ").append(busLicense)
-                        .append("\nNo of seats: ").append(noOfSeat)
-                        .append("\nBus fee: ").append(busFee)
-                        .append("\nDeparture time: ").append(departureTime)
-                        .append("\n\n");
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        TextView tvData = findViewById(R.id.tv_data);  // Ensure this TextView exists in your XML layout
-        tvData.setText(data.toString());
     }
 }
