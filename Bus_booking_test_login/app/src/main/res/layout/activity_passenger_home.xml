@@ -4,35 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="12dp"
+    android:paddingBottom="2dp"
     android:background="@drawable/gradient_background">
 
     <!-- Top Welcome Section with Name and Profile Picture -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingLeft="12dp"
-        android:gravity="center_vertical">
-
-        <!-- Welcome Text -->
-        <TextView
-            android:id="@+id/tv_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome "
-            android:textSize="18sp"
-            android:textColor="@android:color/white"/>
+        android:paddingRight="12dp"
+        android:layout_marginTop="24dp"
+        android:paddingBottom="8dp">
 
         <!-- Welcome Text -->
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Welcome"
             android:textSize="18sp"
             android:textColor="@android:color/white"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/default_profile_image"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_background" />
+    </RelativeLayout>
 
     <!-- White Inner Layout -->
     <LinearLayout
@@ -42,7 +48,6 @@
         android:orientation="vertical"
         android:background="@android:color/white"
         android:padding="16dp"
-        android:layout_marginTop="50dp"
         android:elevation="4dp"
         android:clipToOutline="true"
         android:layout_gravity="bottom"
@@ -54,10 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select your bus"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textColor="@android:color/black"
             android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="80dp" />
 
         <!-- Starting Point Selection -->
         <LinearLayout
@@ -71,8 +76,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Starting Point"
-                android:layout_weight="1"
-                android:textSize="16sp"
+                android:layout_weight="0.5"
+                android:textSize="18sp"
                 android:textColor="@android:color/black" />
 
             <Spinner
@@ -95,8 +100,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Ending Point"
-                android:layout_weight="1"
-                android:textSize="16sp"
+                android:layout_weight="0.5"
+                android:textSize="18sp"
                 android:textColor="@android:color/black" />
 
             <Spinner
@@ -113,14 +118,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="40dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:layout_weight="1"
-                android:textSize="16sp"
+                android:layout_weight="0.5"
+                android:textSize="18sp"
                 android:textColor="@android:color/black" />
 
             <EditText
@@ -139,9 +144,9 @@
         <Button
             android:id="@+id/btn_search_bus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:text="Search for your bus"
-            android:textSize="16sp"
+            android:textSize="22sp"
             android:backgroundTint="@color/primary_color"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"

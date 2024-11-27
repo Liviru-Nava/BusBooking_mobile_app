@@ -17,7 +17,8 @@
         android:background="@drawable/circle_background"
         android:scaleType="centerCrop"
         android:contentDescription="@string/profile_image"
-        android:src="@drawable/gradient_background" />
+        android:src="@drawable/gradient_background"
+        android:onClick="onChangeProfileImage"/>
 
     <!-- Name Field -->
     <EditText
@@ -70,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save your details"
-        android:onClick="onSignUpClicked"
+        android:onClick="onSaveDetailsClicked"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:textColor="@android:color/white"/>
 

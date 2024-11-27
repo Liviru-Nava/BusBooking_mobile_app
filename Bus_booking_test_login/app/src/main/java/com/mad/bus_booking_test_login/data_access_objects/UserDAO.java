@@ -102,7 +102,7 @@ public class UserDAO {
         values.put("password", password);
         values.put("email", email);
         values.put("dob", dob);
-        values.put("profile_picture", "");
+        values.put("profile_picture", defaultProfilePicture);
 
         long result = db.insert("tbl_user", null, values);
         return result != -1;
@@ -120,7 +120,7 @@ public class UserDAO {
         values.put("password", password);
         values.put("email", email);
         values.put("dob", dob);
-        values.put("profile_picture", "");
+        values.put("profile_picture", defaultProfilePicture);
 
         long result = db.insert("tbl_user", null, values);
         return result != -1 ? driver_id : null;
@@ -176,7 +176,7 @@ public class UserDAO {
     }
 
     // Update the specific user's name
-    public boolean updateUserDetails(String userId, String name, String telNo, String email, String dob){
+    public boolean updateUserDetails(String userId, String name, String telNo, String email, String dob, byte[] newImage){
         open();
         SQLiteDatabase db = db_helper.getWritableDatabase();
         ContentValues content = new ContentValues();
@@ -184,6 +184,7 @@ public class UserDAO {
         content.put("tel_no", telNo);
         content.put("email", email);
         content.put("dob", dob);
+        content.put("profile_picture", newImage);
 
         int rowsAffected = db.update("tbl_user", content, "user_id = ?", new String[]{userId});
         return rowsAffected > 0;

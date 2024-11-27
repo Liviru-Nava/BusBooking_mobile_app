@@ -1,11 +1,16 @@
 package com.mad.bus_booking_test_login.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -14,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mad.bus_booking_test_login.R;
 import com.mad.bus_booking_test_login.data_access_objects.RouteDAO;
+import com.mad.bus_booking_test_login.data_access_objects.UserDAO;
 
 import java.util.List;
 
@@ -22,9 +28,14 @@ public class ActivityPassengerHome extends AppCompatActivity {
     private TextView tv_name;
     private EditText et_booking_date;
     private Spinner spinner_starting_point, spinner_ending_point;
+    private ImageView profile_image;
+    private Bitmap profileImage;
     RouteDAO route;
+    UserDAO user;
     private String name, userId;
+    private byte[] user_image;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,15 +45,26 @@ public class ActivityPassengerHome extends AppCompatActivity {
         et_booking_date = findViewById(R.id.et_selected_date);
         spinner_starting_point = findViewById(R.id.spinner_starting_point);
         spinner_ending_point = findViewById(R.id.spinner_ending_point);
+        profile_image = findViewById(R.id.img_profile);
         route = new RouteDAO(this);
+        user = new UserDAO(this);
 
         //set the name received from Intent
         name = getIntent().getStringExtra("name");
-        tv_name.setText(name);
+        tv_name.setText("Welcome " + name);
 
         //get the user_id from the ActivityLogin.class
         userId = getIntent().getStringExtra("user_id");
         name = getIntent().getStringExtra("name");
+
+        Cursor cursor = user.getUserById(userId);
+        if(cursor.moveToFirst()){
+            user_image = cursor.getBlob(7);
+            if(user_image != null){
+                profileImage = BitmapFactory.decodeByteArray(user_image, 0, user_image.length);
+                profile_image.setImageBitmap(profileImage);
+            }
+        }
 
         //initialize spinners with route values
         loadStartingPoints();
