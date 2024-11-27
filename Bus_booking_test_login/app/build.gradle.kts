@@ -49,6 +49,10 @@ dependencies {
     // Maps SDK for Android
     implementation("com.google.android.gms:play-services-maps:19.0.0")
     implementation ("com.google.maps.android:android-maps-utils:2.4.0")
+    //mail
+    implementation ("com.sun.mail:android-mail:1.6.2")
+    implementation ("com.sun.mail:android-activation:1.6.2")
+
 
 }
 

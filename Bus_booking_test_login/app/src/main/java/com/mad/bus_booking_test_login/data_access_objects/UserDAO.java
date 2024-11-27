@@ -189,4 +189,14 @@ public class UserDAO {
         int rowsAffected = db.update("tbl_user", content, "user_id = ?", new String[]{userId});
         return rowsAffected > 0;
     }
+
+    public boolean updatePassword(String userId, String newPassword){
+        open();
+        SQLiteDatabase db = db_helper.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put("password", newPassword);
+
+        int rowsAffected = db.update("tbl_user", content, "user_id = ?", new String[]{userId});
+        return rowsAffected > 0;
+    }
 }

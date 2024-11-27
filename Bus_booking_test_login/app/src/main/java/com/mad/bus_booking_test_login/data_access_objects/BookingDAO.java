@@ -92,7 +92,8 @@ public class BookingDAO {
                 "JOIN \n" +
                 "    tbl_user p ON bk.user_id = p.user_id\n" +
                 "WHERE \n" +
-                "    p.user_id = ? \n";
+                "    p.user_id = ? AND \n" +
+                "    bk.booking_date > DATE('now') \n";
         return db.rawQuery(query, new String[]{userId});
     }
 }

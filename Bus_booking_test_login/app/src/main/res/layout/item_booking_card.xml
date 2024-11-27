@@ -108,12 +108,13 @@
         android:layout_marginTop="16dp">
 
         <Button
-            android:id="@+id/btn_rate"
+            android:id="@+id/btn_rate_now"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:text="Rate" />
+            android:text="Rate"
+            android:onClick="onRateButton"/>
 
         <Button
             android:id="@+id/btn_change"

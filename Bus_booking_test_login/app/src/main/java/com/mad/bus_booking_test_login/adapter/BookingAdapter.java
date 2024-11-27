@@ -8,23 +8,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mad.bus_booking_test_login.R;
+import com.mad.bus_booking_test_login.data_access_objects.RatingDAO;
 import com.mad.bus_booking_test_login.ui.ActivityChangeSeat;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder>{
     private final Context context;
     private final Cursor cursor;
     private final String userId;
+    RatingDAO ratingDAO;
 
     public BookingAdapter(Context context, Cursor cursor, String userId) {
         this.context = context;
         this.cursor = cursor;
         this.userId = userId;
+        ratingDAO= new RatingDAO(context);
     }
 
     @NonNull
@@ -71,6 +76,11 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                 // Start ActivityBookSeat with the data
                 context.startActivity(intent);
             });
+
+            //rate now button
+            holder.rateButton.setOnClickListener(v -> {
+                showRatingDialog(bookingId);
+            });
         }
     }
 
@@ -91,9 +101,40 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             textStartingPoint = itemView.findViewById(R.id.tv_starting_point);
             textEndingPoint = itemView.findViewById(R.id.tv_ending_point);
             textBookingDate = itemView.findViewById(R.id.tv_booking_date);
-            rateButton = itemView.findViewById(R.id.btn_rate);
+            rateButton = itemView.findViewById(R.id.btn_rate_now);
             changeButton = itemView.findViewById(R.id.btn_change);
             cancelButton = itemView.findViewById(R.id.btn_cancel);
         }
+    }
+
+    private void showRatingDialog(String bookingId) {
+        // Inflate dialog layout
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_dialog_rate_now, null);
+
+        // Initialize dialog components
+        RatingBar ratingBar = dialogView.findViewById(R.id.rating_bar);
+        TextView ratingValue = dialogView.findViewById(R.id.tv_rating_value);
+        Button submitButton = dialogView.findViewById(R.id.btn_submit_rating);
+
+        // Update rating text on change
+        ratingBar.setOnRatingBarChangeListener((ratingBar1, rating, fromUser) ->
+                ratingValue.setText("Rating: " + (int) rating + "/5"));
+
+        // Show dialog
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setCancelable(true)
+                .create();
+
+        submitButton.setOnClickListener(v -> {
+            int rating = (int) ratingBar.getRating();
+            if (rating > 0) {
+                ratingDAO.storeRating(bookingId, rating);
+                dialog.dismiss();
+            } else {
+                Toast.makeText(context, "Please select a rating!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
 }
