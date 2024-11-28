@@ -200,4 +200,25 @@ public class UserDAO {
         int rowsAffected = db.update("tbl_user", content, "user_id = ?", new String[]{userId});
         return rowsAffected > 0;
     }
+
+    public Cursor getDriverStatistics(String userId){
+        open();
+        SQLiteDatabase db = db_helper.getReadableDatabase();
+        String sql_query = "SELECT \n" +
+                "    b.bus_name, \n" +
+                "    COUNT(DISTINCT bk.booking_id) AS total_trips, \n" +
+                "    COALESCE(SUM(bk.total_fee)/2, 0) AS total_earnings\n" +
+                "FROM \n" +
+                "    tbl_user u\n" +
+                "JOIN \n" +
+                "    tbl_bus b ON u.user_id = b.user_id\n" +
+                "LEFT JOIN \n" +
+                "    tbl_booking bk ON b.bus_id = bk.bus_id\n" +
+                "WHERE \n" +
+                "    u.user_id = ?\n" +
+                "GROUP BY \n" +
+                "    b.bus_name";
+
+        return db.rawQuery(sql_query, new String[]{userId});
+    }
 }
