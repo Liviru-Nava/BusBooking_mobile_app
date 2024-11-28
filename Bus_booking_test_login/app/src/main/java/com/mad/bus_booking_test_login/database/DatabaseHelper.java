@@ -92,16 +92,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //CREATE tbl_booking_seats BOOKING SEATS TABLE
         String CREATE_NOTIFICATION_TABLE = "CREATE TABLE tbl_notification (" +
-                "notification_id TEXT, " +
+                "notification_id TEXT PRIMARY KEY, " +
                 "user_id TEXT, " +
+                "title TEXT, " +
                 "message TEXT, " +
                 "sent_time TEXT, " +
+                "status TEXT, " +
                 "FOREIGN KEY(user_id) REFERENCES tbl_user(user_id));";
         db.execSQL(CREATE_NOTIFICATION_TABLE);
 
         //CREATE tbl_booking_seats BOOKING SEATS TABLE
         String CREATE_RATINGS_TABLE = "CREATE TABLE tbl_rating (" +
-                "rating_id TEXT, " +
+                "rating_id TEXT PRIMARY KEY, " +
                 "booking_id TEXT, " +
                 "rating REAL, " +
                 "FOREIGN KEY(booking_id) REFERENCES tbl_booking(booking_id));";

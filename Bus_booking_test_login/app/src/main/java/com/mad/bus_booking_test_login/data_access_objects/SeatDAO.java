@@ -9,7 +9,11 @@ import android.util.Log;
 
 import com.mad.bus_booking_test_login.database.DatabaseHelper;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SeatDAO {
@@ -157,8 +161,18 @@ public class SeatDAO {
 
 
     // Method to send a seat swap request and log the details
-    public void sendSeatSwapRequest(String userId, String bookingId, List<Integer> requestedSeats, String busId, String bookingDate) {
+    public void sendSeatSwapRequest(String userId, String bookingId, List<Integer> requestedSeats, String busId, String bookingDate, NotificationDAO notification) {
         open();
+        // Get the current date and time
+        Date now = new Date();
+
+        // Define the desired format
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+        // Format the current date and time
+        String formattedDateTime = formatter.format(now);
+
+
         // Retrieve the user ID of the person who has booked the requested seats
         String recipientUserId = getUserIdForBookedSeats(busId, bookingDate, requestedSeats);
 
@@ -173,6 +187,8 @@ public class SeatDAO {
                 " Requested Seats: " + requestedSeatNumbers +
                 ". Request sent to User ID: " + (recipientUserId != null ? recipientUserId : "No matching user found");
         android.util.Log.d("SeatSwapRequest", logMessage);
+
+        notification.insertNotification(recipientUserId, "Request Seat Swap", logMessage, formattedDateTime);
     }
     // Helper method to find the user ID of the person who booked the requested seats
     private String getUserIdForBookedSeats(String busId, String bookingDate, List<Integer> requestedSeats) {

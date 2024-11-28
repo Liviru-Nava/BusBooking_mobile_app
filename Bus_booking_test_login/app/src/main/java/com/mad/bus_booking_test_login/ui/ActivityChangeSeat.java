@@ -11,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mad.bus_booking_test_login.R;
+import com.mad.bus_booking_test_login.data_access_objects.NotificationDAO;
 import com.mad.bus_booking_test_login.data_access_objects.SeatDAO;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
     TextView tv_bus_name, tv_route_name, tv_booking_date, tv_starting_point, tv_ending_point, tv_driver_name, tv_selected_seats;
     String userId, bookingId, busId, bookingDate;
     SeatDAO seat;
+    NotificationDAO notification;
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
     private Set<Integer> selectedSeats = new HashSet<>();
@@ -44,6 +46,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
 
 
         seat = new SeatDAO(this);
+        notification = new NotificationDAO(this);
 
         busId = getIntent().getStringExtra("bus_id");
         String busName = getIntent().getStringExtra("bus_name");
@@ -147,7 +150,7 @@ public class ActivityChangeSeat extends AppCompatActivity {
 
         if (alreadyBookedSeats.stream().anyMatch(index -> selectedSeats.contains(index + 1))) {
             // Notify user for a seat swap request
-            seat.sendSeatSwapRequest(userId, bookingId, new ArrayList<>(selectedSeats), busId, bookingDate);
+            seat.sendSeatSwapRequest(userId, bookingId, new ArrayList<>(selectedSeats), busId, bookingDate, notification);
             Toast.makeText(this, "Swap request sent to the other passenger.", Toast.LENGTH_LONG).show();
         } else {
             // Perform direct seat swap

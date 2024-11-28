@@ -63,6 +63,7 @@
         <activity android:name=".ui.ActivityChangeSeat" />
         <activity android:name=".ui.ActivityUserProfile"/>
         <activity android:name=".ui.ActivityEditProfile"/>
+        <activity android:name=".ui.ActivityNotificationList"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

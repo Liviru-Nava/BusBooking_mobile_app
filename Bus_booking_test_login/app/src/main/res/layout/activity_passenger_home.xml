@@ -213,7 +213,8 @@
                 android:layout_height="wrap_content"
                 android:text="Notifications"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:onClick="onNavigateNotificationList"/>
         </LinearLayout>
 
         <!-- User Button -->

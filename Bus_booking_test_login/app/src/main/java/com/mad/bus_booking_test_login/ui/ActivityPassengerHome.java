@@ -96,7 +96,13 @@ public class ActivityPassengerHome extends AppCompatActivity {
         navigate_booking_list.putExtra("name", name);
         startActivity(navigate_booking_list);
     }
-
+    //navigate to the notifications list
+    public void onNavigateNotificationList(View view){
+        Intent navigate_notification = new Intent(this, ActivityNotificationList.class);
+        navigate_notification.putExtra("user_id", userId);
+        navigate_notification.putExtra("name", name);
+        startActivity(navigate_notification);
+    }
     //navigate to the user profile
     public void onNavigateUserProfile(View view){
         Intent navigate_user_profile = new Intent(this, ActivityUserProfile.class);
