@@ -43,19 +43,52 @@ public class ActivityLogin extends AppCompatActivity {
         if (isValidUser) {
             // Retrieve both user_id and name
             String[] userDetails = user.getUserDetails(email);
-            if (userDetails != null && userDetails.length == 2) {
+            if (userDetails != null && userDetails.length == 3) {
                 String userId = userDetails[0];  // user_id
                 String userName = userDetails[1]; // name
+                String userType = userDetails[2];
 
-                // Show success message
-                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                switch (userType) {
+                    case "Passenger": {
+                        // Show success message
+                        Toast.makeText(this, "Logged in successfully as passenger!", Toast.LENGTH_SHORT).show();
 
-                // Pass user_id and name to the next activity
-                Intent intent = new Intent(this, ActivityPassengerHome.class);
-                intent.putExtra("user_id", userId); // Pass the user_id to the next activity
-                intent.putExtra("name", userName);  // Pass the name to the next activity
-                startActivity(intent);
-                finish();
+                        // Pass user_id and name to the next activity
+                        Intent navigate_passenger = new Intent(this, ActivityPassengerHome.class);
+                        navigate_passenger.putExtra("user_id", userId); // Pass the user_id to the next activity
+                        navigate_passenger.putExtra("name", userName);  // Pass the name to the next activity
+
+                        startActivity(navigate_passenger);
+                        finish();
+                        break;
+                    }
+                    case "Owner": {
+                        // Show success message
+                        Toast.makeText(this, "Logged in successfully as owner!", Toast.LENGTH_SHORT).show();
+
+                        // Pass user_id and name to the next activity
+                        Intent navigate_owner = new Intent(this, ActivityOwnerHome.class);
+                        navigate_owner.putExtra("user_id", userId); // Pass the user_id to the next activity
+                        navigate_owner.putExtra("name", userName);  // Pass the name to the next activity
+
+                        startActivity(navigate_owner);
+                        finish();
+                        break;
+                    }
+                    case "Driver": {
+                        // Show success message
+                        Toast.makeText(this, "Logged in successfully as driver!", Toast.LENGTH_SHORT).show();
+
+                        // Pass user_id and name to the next activity
+                        Intent navigate_driver = new Intent(this, ActivityDriverHome.class);
+                        navigate_driver.putExtra("user_id", userId); // Pass the user_id to the next activity
+                        navigate_driver.putExtra("name", userName);  // Pass the name to the next activity
+
+                        startActivity(navigate_driver);
+                        finish();
+                        break;
+                    }
+                }
             }
         } else {
             // Unsuccessful login
