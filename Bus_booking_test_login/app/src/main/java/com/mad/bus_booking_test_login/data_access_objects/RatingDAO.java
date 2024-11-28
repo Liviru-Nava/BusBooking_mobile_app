@@ -46,5 +46,4 @@ public class RatingDAO {
         cursor.close();
         return String.format("R%04d", count + 1);
     }
-
 }

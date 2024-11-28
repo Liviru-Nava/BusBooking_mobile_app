@@ -5,4 +5,5 @@
     <color name="primary_color">#020094</color>
     <color name="light_blue">#24a7ff</color>
     <color name="dark_blue">#0b0673</color>
+    <color name="holo_red_light">#f52245</color>
 </resources>
