@@ -49,13 +49,13 @@ public class ActivityPassengerHome extends AppCompatActivity {
         route = new RouteDAO(this);
         user = new UserDAO(this);
 
-        //set the name received from Intent
-        name = getIntent().getStringExtra("name");
-        tv_name.setText("Welcome " + name);
-
         //get the user_id from the ActivityLogin.class
         userId = getIntent().getStringExtra("user_id");
         name = getIntent().getStringExtra("name");
+
+        //set the name received from Intent
+//        name = getIntent().getStringExtra("name");
+        tv_name.setText("Welcome " + name);
 
         Cursor cursor = user.getUserById(userId);
         if(cursor.moveToFirst()){
@@ -78,14 +78,13 @@ public class ActivityPassengerHome extends AppCompatActivity {
         String starting_point = spinner_starting_point.getSelectedItem().toString();
         String ending_point = spinner_ending_point.getSelectedItem().toString();
 
-        //get the user_id from the ActivityLogin.class
-        String userId = getIntent().getStringExtra("user_id");
-
         Intent navigate_bus_list_intent = new Intent(this, ActivityBusList.class);
         navigate_bus_list_intent.putExtra("selected_date", selected_date);
         navigate_bus_list_intent.putExtra("starting_point", starting_point);
         navigate_bus_list_intent.putExtra("ending_point", ending_point);
         navigate_bus_list_intent.putExtra("user_id", userId);
+        navigate_bus_list_intent.putExtra("name", name);
+//        Log.e("Passed User_id", userId);
         startActivity(navigate_bus_list_intent);
     }
 

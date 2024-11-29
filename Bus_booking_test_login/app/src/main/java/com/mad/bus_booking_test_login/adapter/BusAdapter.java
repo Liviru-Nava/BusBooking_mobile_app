@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +22,14 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
     private final Cursor cursor;
     private String booking_date;
     private String passenger_id;
+    private String name;
 
-    public BusAdapter(Context context, Cursor cursor, String bookingDate, String userId) {
+    public BusAdapter(Context context, Cursor cursor, String bookingDate, String userId, String name) {
         this.context = context;
         this.cursor = cursor;
         this.booking_date= bookingDate;
         this.passenger_id = userId;
+        this.name = name;
     }
 
     @NonNull
@@ -48,8 +51,8 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
             @SuppressLint("Range") String routeName = cursor.getString(cursor.getColumnIndex("route_name"));
             @SuppressLint("Range") String startingPoint = cursor.getString(cursor.getColumnIndex("starting_point"));
             @SuppressLint("Range") String endingPoint = cursor.getString(cursor.getColumnIndex("ending_point"));
-            @SuppressLint("Range") String userId = cursor.getString(cursor.getColumnIndex("user_id"));
-            @SuppressLint("Range") String userName = cursor.getString(cursor.getColumnIndex("name"));
+            @SuppressLint("Range") String driverId = cursor.getString(cursor.getColumnIndex("user_id"));
+            @SuppressLint("Range") String driverName = cursor.getString(cursor.getColumnIndex("name"));
 
             holder.textBusName.setText(busName);
             holder.textLicenseNumber.setText("License: " + licenseNumber);
@@ -73,10 +76,12 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder>{
                 intent.putExtra("route_name", routeName);
                 intent.putExtra("starting_point", startingPoint);
                 intent.putExtra("ending_point", endingPoint);
-                intent.putExtra("user_id", userId);
-                intent.putExtra("name", userName);
+                intent.putExtra("driver_id", driverId);
+                intent.putExtra("driver_name", driverName);
                 intent.putExtra("booking_date", booking_date);
-                intent.putExtra("passenger_id", passenger_id);
+                intent.putExtra("user_id", passenger_id);
+                intent.putExtra("name", name);
+//                Log.e("Passed User_id", passenger_id);
 
                 // Start ActivityBookSeat with the data
                 context.startActivity(intent);

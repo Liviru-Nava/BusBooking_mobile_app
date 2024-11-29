@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 
 public class ActivityBusList extends AppCompatActivity {
     private TextView tv_starting_point, tv_ending_point, tv_booking_date;
+    private String userId, name;
     private RecyclerView recyclerViewBuses;
     private BusAdapter busAdapter;
     private BusDAO bus;
@@ -39,7 +40,9 @@ public class ActivityBusList extends AppCompatActivity {
         String booking_date = getIntent().getStringExtra("selected_date");
         String starting_point = getIntent().getStringExtra("starting_point");
         String ending_point = getIntent().getStringExtra("ending_point");
-        String user_id = getIntent().getStringExtra("user_id");
+        userId = getIntent().getStringExtra("user_id");
+        name = getIntent().getStringExtra("name");
+
         tv_starting_point.setText(starting_point);
         tv_ending_point.setText(ending_point);
 
@@ -53,12 +56,12 @@ public class ActivityBusList extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        loadBusesByRouteAndBookingDate(starting_point, ending_point, booking_date, user_id);
+        loadBusesByRouteAndBookingDate(starting_point, ending_point, booking_date, userId, name);
     }
 
-    private void loadBusesByRouteAndBookingDate(String startingPoint, String endingPoint, String bookingDate, String userId) {
+    private void loadBusesByRouteAndBookingDate(String startingPoint, String endingPoint, String bookingDate, String userId, String name) {
         Cursor cursor = bus.getBusesByRouteAndBookingDate(startingPoint, endingPoint, bookingDate);
-        busAdapter = new BusAdapter(this, cursor, bookingDate, userId);
+        busAdapter = new BusAdapter(this, cursor, bookingDate, userId, name);
         recyclerViewBuses.setAdapter(busAdapter);
     }
 }

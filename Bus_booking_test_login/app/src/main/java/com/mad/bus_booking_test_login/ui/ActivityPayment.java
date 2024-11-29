@@ -2,6 +2,7 @@ package com.mad.bus_booking_test_login.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import java.util.Date;
 public class ActivityPayment extends AppCompatActivity {
 
     private TextView tv_bus_name, tv_from, tv_to, tv_booking_date, tv_route_name, tv_bus_fee, tv_no_seats_booked, tv_total_fee;
-    String busName, startingPoint, endingPoint, bookingDate, routeName, passengerId, busId;
+    String busName, startingPoint, endingPoint, bookingDate, routeName, passengerId, busId, name;
     int busFee, seatBookedCount, totalFee;
     BookingDAO booking;
     PaymentDAO payment;
@@ -53,7 +54,8 @@ public class ActivityPayment extends AppCompatActivity {
         bookingDate = getIntent().getStringExtra("booking_date");
         routeName = getIntent().getStringExtra("route_name");
 
-        passengerId = getIntent().getStringExtra("passenger_id");
+        passengerId = getIntent().getStringExtra("user_id");
+        name = getIntent().getStringExtra("name");
         busId = getIntent().getStringExtra("bus_id");
         busFee = getIntent().getIntExtra("bus_fee", 0);
         seatBookedCount = getIntent().getIntExtra("seats_booked_count", 0);
@@ -96,6 +98,11 @@ public class ActivityPayment extends AppCompatActivity {
 
         //Navigate to the passenger's home page
         Intent navigate_passenger_home_intent = new Intent(this, ActivityPassengerHome.class);
+        navigate_passenger_home_intent.putExtra("user_id", passengerId);
+        navigate_passenger_home_intent.putExtra("name", name);
+
+//        Log.e("Passed User_id", passengerId);
+
         startActivity(navigate_passenger_home_intent);
     }
 }

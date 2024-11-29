@@ -3,6 +3,7 @@ package com.mad.bus_booking_test_login.ui;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class ActivityBookSeat extends AppCompatActivity {
 
     TextView tv_bus_name, tv_license, tv_seats_available, tv_fee, tv_route, tv_departure_time,tv_starting_point, tv_ending_point, tv_driver_name, tv_selected_seats;
     SeatDAO seat;
-    String startingPoint, endingPoint;
+    String startingPoint, endingPoint, driverId, driverName;
 
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
@@ -56,8 +57,9 @@ public class ActivityBookSeat extends AppCompatActivity {
         String routeName = getIntent().getStringExtra("route_name");
         startingPoint = getIntent().getStringExtra("starting_point");
         endingPoint = getIntent().getStringExtra("ending_point");
-        String driverName = getIntent().getStringExtra("name");
+        driverName = getIntent().getStringExtra("driver_name");
         String bookingDate = getIntent().getStringExtra("booking_date");
+        driverId = getIntent().getStringExtra("driver_id");
 
         tv_bus_name.setText(busName);
         tv_license.setText(licenseNumber);
@@ -82,7 +84,8 @@ public class ActivityBookSeat extends AppCompatActivity {
         String bookingDate = getIntent().getStringExtra("booking_date");
         String routeName = getIntent().getStringExtra("route_name");
         int busFee = getIntent().getIntExtra("bus_fee", 0);
-        String passengerId = getIntent().getStringExtra("passenger_id");
+        String passengerId = getIntent().getStringExtra("user_id");
+        String passengerName = getIntent().getStringExtra("name");
         String busId = getIntent().getStringExtra("bus_id");
 
         // Step 1: Get the number of seats selected
@@ -103,10 +106,13 @@ public class ActivityBookSeat extends AppCompatActivity {
         intent.putExtra("booking_date", bookingDate);
         intent.putExtra("route_name", routeName);
         intent.putExtra("bus_fee", busFee);
-        intent.putExtra("passenger_id", passengerId);
+        intent.putExtra("user_id", passengerId);
+        intent.putExtra("name", passengerName);
         intent.putExtra("bus_id", busId);
         intent.putExtra("seats_booked_count", seatsBookedCount);
         intent.putStringArrayListExtra("seat_ids", new ArrayList<>(seatIds));
+
+//        Log.e("Passed User_id", passengerId);
 
         startActivity(intent);
     }

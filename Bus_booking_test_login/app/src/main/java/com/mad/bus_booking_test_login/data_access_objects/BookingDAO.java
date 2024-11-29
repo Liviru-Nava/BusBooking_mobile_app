@@ -93,7 +93,7 @@ public class BookingDAO {
                 "    tbl_user p ON bk.user_id = p.user_id\n" +
                 "WHERE \n" +
                 "    p.user_id = ? AND \n" +
-                "    bk.booking_date > DATE('now') \n";
+                "    bk.booking_date >= DATE('now', '-3 days')";
         return db.rawQuery(query, new String[]{userId});
     }
 }
