@@ -181,7 +181,7 @@
                 android:text="Bookings"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
-                android:onClick="onNavigateBookingList"/>
+                android:onClick="onNavigateDriverBookingList"/>
         </LinearLayout>
 
         <!-- Notifications Button -->

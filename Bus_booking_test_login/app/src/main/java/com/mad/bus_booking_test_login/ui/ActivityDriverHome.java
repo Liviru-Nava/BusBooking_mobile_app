@@ -39,11 +39,11 @@ public class ActivityDriverHome extends AppCompatActivity {
         getDriverStatistics(userId);
     }
 
-    public void onNavigateBookingList(View view){
-//        Intent navigate_booking_list = new Intent(this, ActivityBookingList.class);
-//        navigate_booking_list.putExtra("user_id", userId);
-//        navigate_booking_list.putExtra("name", name);
-//        startActivity(navigate_booking_list);
+    public void onNavigateDriverBookingList(View view){
+        Intent navigate_booking_list = new Intent(this, ActivityDriverBookingList.class);
+        navigate_booking_list.putExtra("user_id", userId);
+        navigate_booking_list.putExtra("name", name);
+        startActivity(navigate_booking_list);
     }
 
     public void onNavigateUserProfile(View view){

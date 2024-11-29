@@ -96,4 +96,28 @@ public class BookingDAO {
                 "    bk.booking_date >= DATE('now', '-3 days')";
         return db.rawQuery(query, new String[]{userId});
     }
+
+    public Cursor getUpcomingBookings(){
+        open();
+        String query = "SELECT \n" +
+                "    bk.booking_date, \n" +
+                "    r.route_name,\n" +
+                "    r.starting_point, \n" +
+                "    r.ending_point, \n" +
+                "    b.departure_time, \n" +
+                "    COUNT(DISTINCT bs.seat_id) AS total_no_of_passengers\n" +
+                "FROM \n" +
+                "    tbl_booking bk\n" +
+                "JOIN \n" +
+                "    tbl_bus b ON bk.bus_id = b.bus_id\n" +
+                "JOIN \n" +
+                "    tbl_route r ON b.route_id = r.route_id\n" +
+                "JOIN \n" +
+                "    tbl_booking_seats bs ON bk.booking_id = bs.booking_id\n" +
+                "WHERE \n" +
+                "    bk.booking_date >= DATE('now') -- Filters bookings on or after today\n" +
+                "GROUP BY \n" +
+                "    bk.booking_date, r.route_name, r.starting_point, r.ending_point, b.departure_time";
+        return db.rawQuery(query, new String[]{});
+    }
 }
