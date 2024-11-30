@@ -88,7 +88,7 @@ public class BookingDAO {
                 "JOIN \n" +
                 "    tbl_route r ON b.route_id = r.route_id\n" +
                 "JOIN \n" +
-                "    tbl_user d ON b.user_id = d.user_id\n" +
+                "    tbl_user d ON b.driver_id = d.user_id\n" +
                 "JOIN \n" +
                 "    tbl_user p ON bk.user_id = p.user_id\n" +
                 "WHERE \n" +

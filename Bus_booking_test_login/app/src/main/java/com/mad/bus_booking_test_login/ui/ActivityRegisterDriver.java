@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 public class ActivityRegisterDriver extends AppCompatActivity {
     private EditText et_name, et_email, et_tel_no, et_dob, et_password;
     private UserDAO user;
+    private String owner_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class ActivityRegisterDriver extends AppCompatActivity {
         et_dob = findViewById(R.id.et_dob);
         et_password = findViewById(R.id.et_password);
         user = new UserDAO(this);
+
+        owner_id = getIntent().getStringExtra("owner_id");
     }
 
     //method to direct to register the bus and the route
@@ -45,6 +48,8 @@ public class ActivityRegisterDriver extends AppCompatActivity {
             // Move to the next UI to register the bus and route, passing the driver_id
             Intent navigate_register_bus_and_route_intent = new Intent(this, ActivityRegisterBusAndRoute.class);
             navigate_register_bus_and_route_intent.putExtra("driver_id", driver_id);
+            navigate_register_bus_and_route_intent.putExtra("owner_id", owner_id);
+
             startActivity(navigate_register_bus_and_route_intent);
 
             // Close the current activity after navigating

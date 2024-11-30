@@ -27,6 +27,8 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
 
     private SeatDAO seat;
 
+    private String owner_id, driver_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,9 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
         bus = new BusDAO(this);
 
         seat = new SeatDAO(this);
+
+        owner_id = getIntent().getStringExtra("owner_id");
+        driver_id = getIntent().getStringExtra("driver_id");
     }
 
     //method called when register driver button is clicked
@@ -70,21 +75,20 @@ public class ActivityRegisterBusAndRoute extends AppCompatActivity {
             Toast.makeText(this, "Route Registration successful!", Toast.LENGTH_SHORT).show();
 
             //logic to register the bus with the obtained registered route_id
-            String driver_id = getIntent().getStringExtra("driver_id");
-            registerBus(registered_route_id, driver_id);
+            registerBus(registered_route_id, driver_id, owner_id);
         }else{
             Toast.makeText(this, "Route registration failed, try again later!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void registerBus(String registered_route_id, String user_id) {
+    private void registerBus(String registered_route_id, String driverId, String ownerId) {
         String bus_name = et_bus_name.getText().toString().trim();
         String bus_license = et_license.getText().toString().trim();
         int no_of_seats = Integer.parseInt(et_no_of_seats.getText().toString().trim());
         int bus_fee = Integer.parseInt(et_bus_fee.getText().toString().trim());
         String departure_time = et_departure_time.getText().toString().trim();
 
-        String bus_id = bus.insertBus(registered_route_id, user_id, bus_name, bus_license, no_of_seats, bus_fee, departure_time);
+        String bus_id = bus.insertBus(registered_route_id, ownerId, driverId, bus_name, bus_license, no_of_seats, bus_fee, departure_time);
         if (bus_id != null) {
             boolean seatsRegistered = seat.insertSeat(bus_id, no_of_seats);
             if (seatsRegistered) {

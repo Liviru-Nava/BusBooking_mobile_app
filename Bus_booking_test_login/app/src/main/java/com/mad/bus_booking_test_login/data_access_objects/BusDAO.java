@@ -29,13 +29,14 @@ public class BusDAO {
     }
 
     // Insert new Bus
-    public String insertBus(String route_id, String user_id, String bus_name, String bus_license, int no_of_seats, int bus_fee, String departure_time) {
+    public String insertBus(String route_id, String ownerId, String driverId, String bus_name, String bus_license, int no_of_seats, int bus_fee, String departure_time) {
         open();
         ContentValues values = new ContentValues();
         String bus_id = getNextBusId();
         values.put("bus_id", bus_id);
         values.put("route_id", route_id);
-        values.put("user_id", user_id);
+        values.put("owner_id", ownerId);
+        values.put("driver_id", driverId);
         values.put("bus_name", bus_name);
         values.put("bus_license", bus_license);
         values.put("no_of_seats", no_of_seats);
@@ -85,7 +86,7 @@ public class BusDAO {
                 "JOIN \n" +
                 "    tbl_route r ON b.route_id = r.route_id\n" +
                 "JOIN \n" +
-                "    tbl_user u ON b.user_id = u.user_id  -- Assuming `tbl_bus` has `user_id` as a foreign key\n" +
+                "    tbl_user u ON b.driver_id = u.user_id  -- Assuming `tbl_bus` has `user_id` as a foreign key\n" +
                 "LEFT JOIN \n" +
                 "    tbl_booking_seats bs ON bs.seat_id IN (\n" +
                 "        SELECT seat_id FROM tbl_seat WHERE tbl_seat.bus_id = b.bus_id\n" +
@@ -101,4 +102,38 @@ public class BusDAO {
         return db.rawQuery(query, new String[]{booking_date, startingPoint, endingPoint});
     }
 
+    public Cursor getBusDetailsForOwner(String ownerId){
+        open();
+        String query = "SELECT \n" +
+                "    b.bus_name, \n" +
+                "    b.bus_license, \n" +
+                "    r.starting_point, \n" +
+                "    r.ending_point, \n" +
+                "    r.route_name, \n" +
+                "    d.name AS driver_name, \n" +
+                "    b.bus_fee, \n" +
+                "    b.departure_time, \n" +
+                "    b.no_of_seats, \n" +
+                "    IFNULL(SUM(bk.total_fee), 0) AS total_earnings_from_bus, \n" +
+                "    IFNULL(SUM(bk.total_fee * 0.5), 0) AS owner_earnings, -- Assuming owner gets 80% of total earnings\n" +
+                "    IFNULL(AVG(rt.rating), 0) AS average_rating, \n" +
+                "    COUNT(rt.rating) AS no_of_people_rated\n" +
+                "FROM \n" +
+                "    tbl_bus b\n" +
+                "JOIN \n" +
+                "    tbl_route r ON b.route_id = r.route_id\n" +
+                "JOIN \n" +
+                "    tbl_user d ON b.driver_id = d.user_id\n" +
+                "LEFT JOIN \n" +
+                "    tbl_booking bk ON b.bus_id = bk.bus_id\n" +
+                "LEFT JOIN \n" +
+                "    tbl_rating rt ON bk.booking_id = rt.booking_id\n" +
+                "WHERE \n" +
+                "    b.owner_id = ?\n" +
+                "GROUP BY \n" +
+                "    b.bus_id, b.bus_name, b.bus_license, r.starting_point, r.ending_point, \n" +
+                "    r.route_name, d.name, b.bus_fee, b.departure_time, b.no_of_seats;\n";
+
+        return db.rawQuery(query, new String[]{ownerId});
+    }
 }

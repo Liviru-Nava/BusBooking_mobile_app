@@ -38,14 +38,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_BUS_TABLE = "CREATE TABLE tbl_bus (" +
                 "bus_id TEXT PRIMARY KEY, " +
                 "route_id TEXT, " +
-                "user_id TEXT, " +
+                "owner_id TEXT, " +
+                "driver_id TEXT, " +
                 "bus_name TEXT, " +
                 "bus_license TEXT, " +
                 "no_of_seats INTEGER, " +
                 "bus_fee INTEGER, " +   
                 "departure_time TEXT, " +
                 "FOREIGN KEY(route_id) REFERENCES tbl_route(route_id), " +
-                "FOREIGN KEY(user_id) REFERENCES tbl_user(user_id));";
+                "FOREIGN KEY(owner_id) REFERENCES tbl_route(user_id), " +
+                "FOREIGN KEY(driver_id) REFERENCES tbl_user(user_id));";
         db.execSQL(CREATE_BUS_TABLE);
 
         //CREATE tbl_seat SEAT TABLE

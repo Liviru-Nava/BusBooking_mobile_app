@@ -3,7 +3,6 @@ package com.mad.bus_booking_test_login.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mad.bus_booking_test_login.R;
-import com.mad.bus_booking_test_login.data_access_objects.RouteDAO;
 import com.mad.bus_booking_test_login.data_access_objects.UserDAO;
 
 public class ActivityDriverHome extends AppCompatActivity {

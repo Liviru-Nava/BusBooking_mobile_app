@@ -92,10 +92,11 @@ public class UserDAO {
     }
 
     // Insert new Owner
-    public boolean insertOwner(String name, String email, String tel_no, String dob, String password, byte[] defaultProfilePicture) {
+    public String insertOwner(String name, String email, String tel_no, String dob, String password, byte[] defaultProfilePicture) {
         open();
         ContentValues values = new ContentValues();
-        values.put("user_id", getNextOwnerId());
+        String user_id = getNextOwnerId();
+        values.put("user_id", user_id);
         values.put("name", name);
         values.put("user_type", "Owner");
         values.put("tel_no", tel_no);
@@ -105,7 +106,7 @@ public class UserDAO {
         values.put("profile_picture", defaultProfilePicture);
 
         long result = db.insert("tbl_user", null, values);
-        return result != -1;
+        return result != -1 ? user_id : null;
     }
 
     // Insert new Driver

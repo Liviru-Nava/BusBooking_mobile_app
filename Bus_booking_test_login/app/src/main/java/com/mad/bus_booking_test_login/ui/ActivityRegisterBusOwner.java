@@ -39,14 +39,15 @@ public class ActivityRegisterBusOwner extends AppCompatActivity {
     //method to direct to register the bus and the route
     public void onRegisterOwnerClicked(View view){
         //logic to register the bus owner
-        registerUser();
+        String owner_id = registerUser();
 
         //move to the next UI to register the bus and the route
         Intent navigate_driver_intent = new Intent(this, ActivityRegisterDriver.class);
+        navigate_driver_intent.putExtra("owner_id", owner_id);
         startActivity(navigate_driver_intent);
     }
 
-    private void registerUser() {
+    private String registerUser() {
         String name = et_name.getText().toString().trim();
         String email = et_email.getText().toString().trim();
         String telNo = et_tel_no.getText().toString().trim();
@@ -55,24 +56,25 @@ public class ActivityRegisterBusOwner extends AppCompatActivity {
 
         if (name.isEmpty() || email.isEmpty() || telNo.isEmpty() || dob.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
 
         if (user.emailOrTelExists(email, telNo)) {
             Toast.makeText(this, "Email or phone number already in use", Toast.LENGTH_SHORT).show();
-            return;
+            return null;
         }
 
         // Convert default image to byte array
         byte[] defaultProfilePicture = getDefaultProfilePicture();
 
-        boolean isInserted = user.insertOwner(name, email, telNo, dob, password, defaultProfilePicture);
-        if (isInserted) {
+        String owner_id = user.insertOwner(name, email, telNo, dob, password, defaultProfilePicture);
+        if (owner_id != null) {
             Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
             finish();
         } else {
             Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
         }
+        return owner_id;
     }
 
     // Convert the default profile picture to byte array

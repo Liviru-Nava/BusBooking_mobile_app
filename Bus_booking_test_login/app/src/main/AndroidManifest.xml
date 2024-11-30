@@ -66,6 +66,7 @@
         <activity android:name=".ui.ActivityNotificationList"/>
         <activity android:name=".ui.ActivityDriverHome"/>
         <activity android:name=".ui.ActivityDriverBookingList"/>
+        <activity android:name=".ui.ActivityOwnerHome"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
