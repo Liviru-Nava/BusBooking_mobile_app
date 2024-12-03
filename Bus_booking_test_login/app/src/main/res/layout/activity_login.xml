@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,25 +9,57 @@
     android:gravity="center"
     android:background="@android:color/white">
 
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:layout_gravity="center"
+        android:text="Login Here"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        android:textSize="32sp" />
+
     <!-- Email Field -->
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="start"
+        android:text="Email Address"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:background="@android:drawable/edit_text" />
+        android:padding="20dp"
+        android:background="@android:drawable/edit_text"/>
 
     <!-- Password Field with Show/Hide Icon -->
+    <TextView
+        android:id="@+id/tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="start"
+        android:text="Password"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@android:drawable/edit_text"
-        android:layout_marginTop="16dp"
-        android:padding="10dp">
+        android:layout_marginTop="16dp">
 
         <EditText
             android:id="@+id/et_password"
@@ -36,15 +69,18 @@
             android:background="@null"
             android:hint="Password"
             android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            android:minHeight="48dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_show_hide_password"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:padding="4dp"
-            android:text="show" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/hide"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            app:tint="@android:color/holo_blue_dark"
+            android:onClick="onTogglePassword"/>
 
     </LinearLayout>
 
@@ -53,13 +89,13 @@
         android:id="@+id/tv_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:minHeight="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="end"
         android:text="Forgot Password?"
         android:textColor="@android:color/holo_blue_dark"
-        android:textStyle="bold" />
-        <!--android:onClick="onForgotPasswordClicked"-->
+        android:textStyle="bold"
+        android:onClick="onForgotPasswordClicked"/>
+
 
 
     <!-- Log In Button -->
@@ -69,9 +105,9 @@
         android:layout_height="wrap_content"
         android:text="Log in"
         android:onClick="onLoginClicked"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="@color/login_background"
         android:textColor="@android:color/white"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"/>
 
     <!-- Sign Up Button -->
     <Button
@@ -80,8 +116,8 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:onClick="onSignUpClicked"
-        android:backgroundTint="@android:color/darker_gray"
+        android:backgroundTint="@android:color/holo_blue_dark"
         android:textColor="@android:color/white"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>

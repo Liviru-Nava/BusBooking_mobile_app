@@ -212,7 +212,7 @@ public class UserDAO {
                 "FROM \n" +
                 "    tbl_user u\n" +
                 "JOIN \n" +
-                "    tbl_bus b ON u.user_id = b.user_id\n" +
+                "    tbl_bus b ON u.user_id = b.driver_id\n" +
                 "LEFT JOIN \n" +
                 "    tbl_booking bk ON b.bus_id = bk.bus_id\n" +
                 "WHERE \n" +
@@ -221,5 +221,16 @@ public class UserDAO {
                 "    b.bus_name";
 
         return db.rawQuery(sql_query, new String[]{userId});
+    }
+
+    public String getUserIdByEmail(String emailAddress) {
+        open();
+        SQLiteDatabase db = db_helper.getReadableDatabase();
+        String query = "SELECT user_id FROM tbl_user WHERE email = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{emailAddress});
+        if(cursor.moveToFirst()){
+            return cursor.getString(0);
+        }
+        return null;
     }
 }
