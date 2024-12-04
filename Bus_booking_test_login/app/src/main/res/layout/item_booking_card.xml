@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/border_background"
     android:padding="16dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,6 +115,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:text="Rate"
+            android:backgroundTint="@color/pay_now_button"
             android:onClick="onRateButton"/>
 
         <Button
@@ -123,6 +125,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:text="Change Seat"
+            android:backgroundTint="@color/confirm_button"
             android:onClick="onChangeSeatClicked"/>
 
         <Button
@@ -130,7 +133,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:onClick="onCancelButtonClicked"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -62,11 +62,20 @@ public class BookingDAO {
     private String generateBookingId() {
         open();
 
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM tbl_booking", null);
-        cursor.moveToFirst();
-        int count = cursor.getInt(0);
+        Cursor cursor = db.rawQuery("SELECT booking_id FROM tbl_booking ORDER BY ROWID DESC LIMIT 1", null);
+        String newId;
+        if (cursor.moveToFirst()) {
+            // Extract the last booking ID
+            String lastId = cursor.getString(0);
+            // Extract the numeric part from the ID and increment it
+            int numericPart = Integer.parseInt(lastId.replace("BOOK", ""));
+            newId = "BOOK" + (numericPart + 1);
+        } else {
+            // If no records exist, start with "BOOK1"
+            newId = "BOOK1";
+        }
         cursor.close();
-        return "BOOK" + (count + 1);
+        return newId;
     }
 
     public Cursor getBookingsFromUserId(String userId) {
@@ -119,5 +128,44 @@ public class BookingDAO {
                 "GROUP BY \n" +
                 "    bk.booking_date, r.route_name, r.starting_point, r.ending_point, b.departure_time";
         return db.rawQuery(query, new String[]{});
+    }
+
+    public boolean deleteBooking(String bookingId) {
+        open();
+        SQLiteDatabase db = db_helper.getWritableDatabase();
+
+        try {
+            // Begin transaction
+            db.beginTransaction();
+
+            // Delete from tbl_payment
+            int paymentRows = db.delete("tbl_payment", "booking_id = ?", new String[]{bookingId});
+
+            // Delete from tbl_rating
+            int ratingRows = db.delete("tbl_rating", "booking_id = ?", new String[]{bookingId});
+
+            // Delete from tbl_booking_seats
+            int bookingSeatsRows = db.delete("tbl_booking_seats", "booking_id = ?", new String[]{bookingId});
+
+            // Finally, delete from tbl_booking
+            int bookingRows = db.delete("tbl_booking", "booking_id = ?", new String[]{bookingId});
+
+            // If all deletions are successful, mark transaction as successful
+            if (paymentRows>0 && bookingSeatsRows >0 && bookingRows > 0) {
+                db.setTransactionSuccessful();
+                return true; // Indicate success
+            } else {
+                return false; // Indicate failure if no rows were deleted from tbl_booking
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Indicate failure
+        } finally {
+            if (db != null) {
+                // End transaction
+                db.endTransaction();
+                db.close();
+            }
+        }
     }
 }

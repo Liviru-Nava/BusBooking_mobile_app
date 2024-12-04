@@ -39,11 +39,28 @@ public class ActivityNotificationList extends AppCompatActivity {
         getNotificationsForUserId(userId);
     }
 
+    //method to navigate home
     public void onNavigateHome(View view){
         Intent navigate_home = new Intent(this, ActivityPassengerHome.class);
         navigate_home.putExtra("name", name);
         navigate_home.putExtra("user_id", userId);
         startActivity(navigate_home);
+    }
+
+    //method to navigate to booking
+    public void onNavigateBookingList(View view){
+        Intent navigate_booking = new Intent(this, ActivityBookingList.class);
+        navigate_booking.putExtra("name", name);
+        navigate_booking.putExtra("user_id", userId);
+        startActivity(navigate_booking);
+    }
+
+    //method to navigate to user profile
+    public void onNavigateUserProfile(View view){
+        Intent navigate_profile = new Intent(this, ActivityUserProfile.class);
+        navigate_profile.putExtra("name", name);
+        navigate_profile.putExtra("user_id", userId);
+        startActivity(navigate_profile);
     }
 
     private void getNotificationsForUserId(String userId) {

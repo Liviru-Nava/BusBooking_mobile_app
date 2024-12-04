@@ -47,10 +47,19 @@ public class PaymentDAO {
     // Method to generate a unique payment ID in the format PAY1, PAY2, etc.
     private String generatePaymentId() {
         open();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM tbl_payment", null);
-        cursor.moveToFirst();
-        int count = cursor.getInt(0);
+        Cursor cursor = db.rawQuery("SELECT payment_id FROM tbl_payment ORDER BY ROWID DESC LIMIT 1", null);
+        String newId;
+        if (cursor.moveToFirst()) {
+            // Extract the last booking ID
+            String lastId = cursor.getString(0);
+            // Extract the numeric part from the ID and increment it
+            int numericPart = Integer.parseInt(lastId.replace("PAY", ""));
+            newId = "PAY" + (numericPart + 1);
+        } else {
+            // If no records exist, start with "BOOK1"
+            newId = "PAY1";
+        }
         cursor.close();
-        return "PAY" + (count + 1);
+        return newId;
     }
 }

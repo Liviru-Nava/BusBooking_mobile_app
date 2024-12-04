@@ -20,6 +20,7 @@ public class ActivityBookingList extends AppCompatActivity {
     private RecyclerView recyclerViewBookings;
     private BookingDAO booking;
     private String userId, name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +34,30 @@ public class ActivityBookingList extends AppCompatActivity {
         getBookingsFromUserId(userId);
     }
 
+    //method to navigate home
     public void onNavigateHome(View view){
         Intent navigate_home = new Intent(this, ActivityPassengerHome.class);
         navigate_home.putExtra("name", name);
         navigate_home.putExtra("user_id", userId);
         startActivity(navigate_home);
     }
+
+    //method to navigate to notification
+    public void onNavigateNotificationList(View view){
+        Intent navigate_notification = new Intent(this, ActivityNotificationList.class);
+        navigate_notification.putExtra("name", name);
+        navigate_notification.putExtra("user_id", userId);
+        startActivity(navigate_notification);
+    }
+
+    //method to navigate to user profile
+    public void onNavigateUserProfile(View view){
+        Intent navigate_profile = new Intent(this, ActivityUserProfile.class);
+        navigate_profile.putExtra("name", name);
+        navigate_profile.putExtra("user_id", userId);
+        startActivity(navigate_profile);
+    }
+
     private void getBookingsFromUserId(String userId) {
         Cursor cursor = booking.getBookingsFromUserId(userId);
         bookingAdapter = new BookingAdapter(this, cursor, userId);

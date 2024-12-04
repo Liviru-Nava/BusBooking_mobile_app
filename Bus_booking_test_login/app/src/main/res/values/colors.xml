@@ -7,4 +7,7 @@
     <color name="dark_blue">#0b0673</color>
     <color name="holo_red_light">#f52245</color>
     <color name="login_background">#014f8f</color>
+    <color name="book_now_button">#32CD32</color>
+    <color name="pay_now_button">#32CD32</color>
+    <color name="confirm_button">#faa157</color>
 </resources>

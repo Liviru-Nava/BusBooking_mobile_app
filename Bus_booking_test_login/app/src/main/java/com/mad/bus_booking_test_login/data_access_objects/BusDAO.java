@@ -136,4 +136,10 @@ public class BusDAO {
 
         return db.rawQuery(query, new String[]{ownerId});
     }
+
+    public Cursor getDriverById(String busId) {
+        open();
+        String query = "SELECT profile_picture FROM tbl_user WHERE user_id = (SELECT driver_id FROM tbl_bus WHERE bus_id = ?)";
+        return db.rawQuery(query, new String[]{busId});
+    }
 }

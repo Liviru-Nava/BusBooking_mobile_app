@@ -1,11 +1,14 @@
 package com.mad.bus_booking_test_login.ui;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.GridLayout;
 
@@ -13,6 +16,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mad.bus_booking_test_login.R;
+import com.mad.bus_booking_test_login.data_access_objects.BusDAO;
 import com.mad.bus_booking_test_login.data_access_objects.SeatDAO;
 
 import java.util.ArrayList;
@@ -24,7 +28,11 @@ public class ActivityBookSeat extends AppCompatActivity {
 
     TextView tv_bus_name, tv_license, tv_seats_available, tv_fee, tv_route, tv_departure_time,tv_starting_point, tv_ending_point, tv_driver_name, tv_selected_seats;
     SeatDAO seat;
+    BusDAO bus;
     String startingPoint, endingPoint, driverId, driverName;
+    private Bitmap profileImage;
+    private ImageView profile_image;
+    private byte[] user_image;
 
     private List<Button> seatButtons = new ArrayList<>();
     private Set<Integer> bookedSeats = new HashSet<>();
@@ -39,13 +47,16 @@ public class ActivityBookSeat extends AppCompatActivity {
         tv_license = findViewById(R.id.tv_license);
         tv_seats_available = findViewById(R.id.tv_seats_available);
         tv_fee = findViewById(R.id.tv_fee);
-        tv_route = findViewById(R.id.tv_route);
+        tv_route = findViewById(R.id.tv_route_name);
         tv_departure_time = findViewById(R.id.tv_departure_time);
         tv_starting_point = findViewById(R.id.tv_starting_point);
         tv_ending_point = findViewById(R.id.tv_ending_point);
         tv_driver_name = findViewById(R.id.tv_driver_name);
         tv_selected_seats = findViewById(R.id.tv_selected_seats);
+        profile_image = findViewById(R.id.img_driver_profile);
+
         seat = new SeatDAO(this);
+        bus = new BusDAO(this);
 
         // Retrieve data from Intent
         String busId = getIntent().getStringExtra("bus_id");
@@ -70,6 +81,15 @@ public class ActivityBookSeat extends AppCompatActivity {
         tv_starting_point.setText(startingPoint);
         tv_ending_point.setText(endingPoint);
         tv_driver_name.setText(driverName);
+
+        Cursor cursor = bus.getDriverById(busId);
+        if(cursor.moveToFirst()){
+            user_image = cursor.getBlob(0);
+            if(user_image != null){
+                profileImage = BitmapFactory.decodeByteArray(user_image, 0, user_image.length);
+                profile_image.setImageBitmap(profileImage);
+            }
+        }
 
         // Initialize the seats
         initializeSeats();

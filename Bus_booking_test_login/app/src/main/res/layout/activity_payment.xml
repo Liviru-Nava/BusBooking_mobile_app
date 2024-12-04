@@ -12,10 +12,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Booking Summary"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="100dp"/>
 
     <!-- Center Rectangle Card -->
     <LinearLayout
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:background="#FFFFFF"
+        android:background="@drawable/border_background"
         android:padding="20dp"
         android:elevation="4dp"
         android:layout_margin="16dp">
@@ -35,9 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bus Name"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:textColor="@color/light_blue"
             android:layout_gravity="center_horizontal"/>
 
         <!-- Divider Line -->
@@ -191,7 +191,7 @@
                 android:layout_weight="1"
                 android:text="Rs. 4500"
                 android:textSize="18sp"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:gravity="end"/>
         </LinearLayout>
@@ -204,8 +204,8 @@
             android:layout_marginTop="20dp"
             android:text="Pay Now"
             android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#32CD32"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/pay_now_button"
             android:textStyle="bold"
             android:onClick="onPayNowClicked"/>
     </LinearLayout>

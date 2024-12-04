@@ -11,34 +11,39 @@
         android:id="@+id/top_gradient_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/top_gradient_rounded"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="22dp"
-        android:gravity="center"
-        android:background="@drawable/top_gradient_rounded"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.17">
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Welcome Text -->
         <TextView
-            android:id="@+id/tv_view"
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="Welcome, User"
-            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:textColor="@android:color/white" />
+            android:textStyle="bold" />
 
         <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/img_profile"
+        <FrameLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_profile_image"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_background" />
+            android:background="@drawable/circle_mask"
+            android:clipToOutline="true">
+
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_profile_image" />
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -50,7 +55,7 @@
         android:layout_margin="16dp"
         android:orientation="vertical"
         android:background="@drawable/border_background"
-        android:elevation="8dp"
+        android:elevation="10dp"
         app:layout_constraintTop_toBottomOf="@+id/top_gradient_layout"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         android:padding="16dp">
@@ -144,13 +149,14 @@
 
             <ImageButton
                 android:id="@+id/btn_open_calendar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/calendar"
                 android:background="@null"
                 android:contentDescription="Open Calendar"
                 android:scaleType="centerInside"
-                android:tint="@color/primary_color" />
+                app:tint="@android:color/holo_blue_dark"
+                android:onClick="onOpenCalendar"/>
         </LinearLayout>
 
 
@@ -188,13 +194,13 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <Button
+            <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/dark_blue"
-                android:textSize="12sp"/>
+                android:src="@drawable/home"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/dark_blue"/>
         </LinearLayout>
 
         <!-- Bookings Button -->
@@ -207,12 +213,13 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bookings"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/booking"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
                 android:onClick="onNavigateBookingList"/>
         </LinearLayout>
 
@@ -226,13 +233,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/notification"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
                 android:onClick="onNavigateNotificationList"/>
+
         </LinearLayout>
 
         <!-- User Button -->
@@ -245,13 +254,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
                 android:onClick="onNavigateUserProfile"/>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

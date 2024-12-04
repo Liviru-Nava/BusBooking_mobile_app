@@ -2,177 +2,348 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- top view -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:background="@drawable/top_gradient_rounded"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-            <!-- Bus Name -->
-            <TextView
-                android:id="@+id/tv_bus_name_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bus Name:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_bus_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample Bus Name"
-                android:paddingBottom="8dp" />
-
-            <!-- License Number -->
-            <TextView
-                android:id="@+id/tv_license_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="License Number:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_license"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample License"
-                android:paddingBottom="8dp" />
-
-            <!-- Seats Available -->
-            <TextView
-                android:id="@+id/tv_seats_available_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seats Available:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_seats_available"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:paddingBottom="8dp" />
-
-            <!-- Bus Fee -->
-            <TextView
-                android:id="@+id/tv_fee_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bus Fee:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_fee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 0"
-                android:paddingBottom="8dp" />
-
-            <!-- Departure Time -->
-            <TextView
-                android:id="@+id/tv_departure_time_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Departure Time:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_departure_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00"
-                android:paddingBottom="8dp" />
-
-            <!-- Route Name -->
-            <TextView
-                android:id="@+id/tv_route_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Route Name:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_route"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample Route"
-                android:paddingBottom="8dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="show on map"
-                android:onClick="onShowMap"/>
-
-            <!-- Starting Point -->
-            <TextView
-                android:id="@+id/tv_starting_point_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Starting Point:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_starting_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample Starting Point"
-                android:paddingBottom="8dp" />
-
-            <!-- Ending Point -->
-            <TextView
-                android:id="@+id/tv_ending_point_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ending Point:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_ending_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample Ending Point"
-                android:paddingBottom="8dp" />
-
-            <!-- Driver -->
-            <TextView
-                android:id="@+id/tv_driver_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Driver Name:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_driver_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sample Driver Name"
-                android:paddingBottom="8dp" />
-
-            <!-- Book Button -->
-            <Button
-                android:id="@+id/btn_confirm_booking"
+            <!-- bus details -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm Booking"
-                android:layout_marginTop="16dp"
-                android:onClick="onConfirmBooking"/>
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_bus_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sample Bus Name"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:paddingBottom="8dp" />
+
+                    <!-- License Number -->
+                    <TextView
+                        android:id="@+id/tv_license_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="License Number:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_license"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sample License"
+                        android:textColor="@color/white"
+                        android:paddingBottom="8dp" />
+
+                    <!-- Seats Available -->
+                    <TextView
+                        android:id="@+id/tv_seats_available_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Seats Available:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_seats_available"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="0"
+                        android:paddingBottom="8dp" />
+
+                    <!-- Bus Fee -->
+                    <TextView
+                        android:id="@+id/tv_fee_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="Bus Fee:"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="Rs. 0"
+                        android:paddingBottom="8dp" />
+
+                    <!-- Departure Time -->
+                    <TextView
+                        android:id="@+id/tv_departure_time_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Departure Time:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_departure_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:00"
+                        android:textColor="@color/white"
+                        android:paddingBottom="8dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- Starting Point -->
+                    <TextView
+                        android:id="@+id/tv_starting_point_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Starting Point:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_starting_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sample Starting Point"
+                        android:textColor="@color/white"
+                        android:paddingBottom="8dp" />
+
+                    <!-- Ending Point -->
+                    <TextView
+                        android:id="@+id/tv_ending_point_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ending Point:"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_ending_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sample Ending Point"
+                        android:textColor="@color/white"
+                        android:paddingBottom="8dp" />
+
+                    <!-- Route Name -->
+                    <TextView
+                        android:id="@+id/tv_route_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Route Name:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_route_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sample Route"
+                        android:textColor="@color/white"
+                        android:paddingBottom="8dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <ImageButton
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/location"
+                            android:scaleType="centerInside"
+                            android:background="@null"
+                            android:tint="@color/white"
+                            android:onClick="onShowMap"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Show on map"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Divider Line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D3D3D3" />
+
+            <!-- driver name and image -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <!-- Driver -->
+                    <TextView
+                        android:id="@+id/tv_driver_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Driver Name:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="start"/>
+
+                    <TextView
+                        android:id="@+id/tv_driver_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sample Driver Name"
+                        android:textColor="@color/white"
+                        android:paddingBottom="8dp" />
+
+                </LinearLayout>
+
+                <!-- Profile Image -->
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle_mask"
+                    android:clipToOutline="true"
+                    android:layout_marginTop="3dp">
+
+                    <ImageView
+                        android:id="@+id/img_driver_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_profile_image" />
+                </FrameLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <!-- activity_book_seat.xml -->
+        <!-- seat layout and confirm button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Selected Seats -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@android:color/holo_green_dark" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Selected Seats"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <!-- Free Seats -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/free_seat_border"
+                        android:layout_margin="1dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:clipToOutline="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="free seat"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <!-- Selected Seats -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@android:color/holo_red_dark" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="booked Seats"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_selected_seats"
@@ -180,8 +351,9 @@
                 android:layout_height="wrap_content"
                 android:text="Selected Seats:"
                 android:layout_gravity="center"
-                android:padding="8dp"
-                android:textSize="16sp"/>
+                android:padding="2dp"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"/>
 
             <GridLayout
                 android:id="@+id/grid_seats"
@@ -210,6 +382,7 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="Seat 2"
+                    android:layout_marginRight="60dp"
                     android:textColor="#1149EB"
                     app:strokeColor="#1149EB"
                     app:strokeWidth="4dp" />
@@ -251,6 +424,7 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="Seat 6"
+                    android:layout_marginRight="60dp"
                     android:textColor="#1149EB"
                     app:strokeColor="#1149EB"
                     app:strokeWidth="4dp" />
@@ -279,7 +453,8 @@
                 <Button
                     android:id="@+id/seat_9"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_height="54dp"
                     android:layout_columnWeight="1"
                     android:text="Seat 9"
                     android:textColor="#1149EB"
@@ -292,6 +467,7 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:text="Seat 10"
+                    android:layout_marginRight="60dp"
                     android:textColor="#1149EB"
                     app:strokeColor="#1149EB"
                     app:strokeWidth="4dp" />
@@ -334,6 +510,7 @@
                     android:layout_columnWeight="1"
                     android:text="Seat 14"
                     android:textColor="#1149EB"
+                    android:layout_marginRight="60dp"
                     app:strokeColor="#1149EB"
                     app:strokeWidth="4dp" />
 
@@ -357,6 +534,19 @@
                     app:strokeColor="#1149EB"
                     app:strokeWidth="4dp" />
             </GridLayout>
+
+            <!-- Book Button -->
+            <Button
+                android:id="@+id/btn_confirm_booking"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Confirm Booking"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:backgroundTint="@color/confirm_button"
+                android:layout_marginTop="40dp"
+                android:onClick="onConfirmBooking"/>
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

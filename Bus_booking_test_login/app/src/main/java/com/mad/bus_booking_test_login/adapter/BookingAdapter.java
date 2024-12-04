@@ -1,6 +1,9 @@
 package com.mad.bus_booking_test_login.adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,14 +19,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mad.bus_booking_test_login.R;
+import com.mad.bus_booking_test_login.data_access_objects.BookingDAO;
 import com.mad.bus_booking_test_login.data_access_objects.RatingDAO;
 import com.mad.bus_booking_test_login.ui.ActivityChangeSeat;
+import com.mad.bus_booking_test_login.ui.ActivityLogin;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder>{
     private final Context context;
     private final Cursor cursor;
     private final String userId;
     RatingDAO ratingDAO;
+    Dialog logoutDialog;
 
     public BookingAdapter(Context context, Cursor cursor, String userId) {
         this.context = context;
@@ -81,8 +87,66 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             holder.rateButton.setOnClickListener(v -> {
                 showRatingDialog(bookingId);
             });
+
+            holder.cancelButton.setOnClickListener(v -> {
+                cancelBooking(bookingId);
+            });
         }
     }
+
+    private void cancelBooking(String bookingId) {
+        // Create and configure the dialog
+        logoutDialog = new Dialog(context);
+        logoutDialog.setContentView(R.layout.activity_cancel_booking);
+        logoutDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        // Initialize "Yes" and "No" buttons
+        Button yesButton = logoutDialog.findViewById(R.id.btn_yes);
+        Button noButton = logoutDialog.findViewById(R.id.btn_no);
+
+        // Set "Yes" button behavior
+        yesButton.setOnClickListener(v -> {
+            // Call a method to delete the booking from the database
+            deleteBooking(bookingId);
+
+            // Show a success message
+            Toast.makeText(context, "Booking cancelled successfully!", Toast.LENGTH_SHORT).show();
+
+            // Dismiss the dialog
+            logoutDialog.dismiss();
+
+            // Refresh the RecyclerView
+            notifyDataSetChanged();
+        });
+
+        // Set "No" button behavior
+        noButton.setOnClickListener(v -> logoutDialog.dismiss());
+
+        // Show the dialog
+        logoutDialog.show();
+    }
+
+    // Method to delete a booking from the database
+    private void deleteBooking(String bookingId) {
+        try {
+            // Assuming you have a DAO or helper to handle the database operations
+            BookingDAO booking = new BookingDAO(context);
+
+            // Call the delete method
+            boolean isDeleted = booking.deleteBooking(bookingId);
+
+            if (!isDeleted) {
+                Toast.makeText(context, "Failed to cancel the booking!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(context, "Booking has been cancelled successfully!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context, "An error occurred while cancelling the booking!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -92,6 +156,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
     static class BookingViewHolder extends RecyclerView.ViewHolder {
         TextView textBusName, textRouteName, textDriverName, textStartingPoint, textEndingPoint, textBookingDate;
         Button rateButton, changeButton, cancelButton;
+        Dialog logoutDialog;
 
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);

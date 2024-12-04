@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:background="@drawable/border_background"
+    android:padding="10dp"
     android:layout_marginBottom="8dp">
 
     <!-- Left Section with Bus Details -->
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bus Name"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -26,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bus Fee"
-            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
             android:paddingTop="4dp"/>
 
         <TextView
@@ -34,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No of Seats Available"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:paddingTop="4dp"/>
 
         <TextView
@@ -42,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Route Name"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:paddingTop="4dp"/>
 
         <TextView
@@ -50,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bus License"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:paddingTop="4dp"/>
 
         <TextView
@@ -58,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Departure time"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:paddingTop="4dp"/>
     </LinearLayout>
 
@@ -74,15 +76,17 @@
             android:id="@+id/tv_starting_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Colombo"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:paddingBottom="4dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="to"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:paddingBottom="4dp"/>
 
@@ -90,18 +94,20 @@
             android:id="@+id/tv_ending_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Galle"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:paddingBottom="4dp"/>
 
         <Button
             android:id="@+id/btn_book_now"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Book Now"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#2196F3"
-            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/book_now_button"
+            android:layout_marginTop="10dp"
             android:onClick="onBookNow"/>
     </LinearLayout>
 

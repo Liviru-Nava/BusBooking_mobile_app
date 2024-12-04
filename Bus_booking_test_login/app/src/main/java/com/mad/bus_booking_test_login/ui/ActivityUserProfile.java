@@ -89,6 +89,30 @@ public class ActivityUserProfile extends AppCompatActivity {
         startActivity(navigate_edit_profile);
     }
 
+    //method to navigate home
+    public void onNavigateHome(View view){
+        Intent navigate_home = new Intent(this, ActivityPassengerHome.class);
+        navigate_home.putExtra("name", name);
+        navigate_home.putExtra("user_id", userId);
+        startActivity(navigate_home);
+    }
+
+    //method to navigate to booking
+    public void onNavigateBookingList(View view){
+        Intent navigate_booking = new Intent(this, ActivityBookingList.class);
+        navigate_booking.putExtra("name", name);
+        navigate_booking.putExtra("user_id", userId);
+        startActivity(navigate_booking);
+    }
+
+    //method to navigate to user profile
+    public void onNavigateNotificationList(View view){
+        Intent navigate_notification = new Intent(this, ActivityNotificationList.class);
+        navigate_notification.putExtra("name", name);
+        navigate_notification.putExtra("user_id", userId);
+        startActivity(navigate_notification);
+    }
+
     //method to navigate the reset password
     public void onResetPassword(View view){
         resetDialog.show();

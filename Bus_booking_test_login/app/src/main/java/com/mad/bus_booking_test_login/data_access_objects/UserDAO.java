@@ -233,4 +233,16 @@ public class UserDAO {
         }
         return null;
     }
+
+    public String getEmailByUserId(String userId) {
+        open();
+        SQLiteDatabase db = db_helper.getReadableDatabase();
+        String query = "SELECT email FROM tbl_user WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userId});
+        if(cursor.moveToFirst()){
+            String email = cursor.getString(0);
+            return email;
+        }
+        return null;
+    }
 }
