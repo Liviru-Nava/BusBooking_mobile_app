@@ -86,7 +86,7 @@ public class ActivityOwnerHome extends AppCompatActivity {
     }
 
     public void onNavigateUserProfile(View view){
-        Intent navigate_user_profile = new Intent(this, ActivityUserProfile.class);
+        Intent navigate_user_profile = new Intent(this, ActivityOwnerProfile.class);
         navigate_user_profile.putExtra("user_id", userId);
         navigate_user_profile.putExtra("name", name);
         Log.e("Passed User_id", userId);

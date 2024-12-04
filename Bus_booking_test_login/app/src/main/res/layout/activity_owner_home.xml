@@ -1,54 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/gradient_background">
 
     <!-- Top Welcome Section -->
+
+    <!-- White Rectangle Card -->
+
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:padding="12dp"
-        android:layout_marginTop="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Welcome Text -->
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome, [UserName]"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:text="Welcome, [UserName]"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
         <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/default_profile_image"
-            android:scaleType="centerCrop"
-            android:background="@drawable/circle_background" />
+            android:background="@drawable/circle_mask"
+            android:clipToOutline="true">
+
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="56dp"
+                android:layout_marginBottom="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/default_profile_image" />
+        </FrameLayout>
     </RelativeLayout>
 
-    <!-- White Rectangle Card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="152dp"
         android:layout_weight="1"
-        android:background="@android:color/white"
+        android:background="@drawable/border_background"
         android:elevation="4dp"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        tools:layout_editor_absoluteX="0dp">
 
         <!-- Bus Name -->
         <TextView
@@ -58,8 +75,8 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="Bus Name"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
+            android:textColor="@color/light_blue"
+            android:textSize="32sp" />
 
         <!-- Left and Right Sections -->
         <LinearLayout
@@ -73,6 +90,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -88,7 +106,7 @@
                     android:id="@+id/tv_starting_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Starting Point: [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -97,7 +115,7 @@
                     android:id="@+id/tv_ending_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Ending Point: [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -106,7 +124,7 @@
                     android:id="@+id/tv_route_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Route Name: [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -116,8 +134,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:layout_weight="1"
-                android:gravity="end"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
@@ -132,7 +151,7 @@
                     android:id="@+id/tv_departure_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Departure Time: [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -141,7 +160,7 @@
                     android:id="@+id/tv_no_of_seats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Number of Seats: [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -150,7 +169,7 @@
                     android:id="@+id/tv_driver_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Driver name"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -168,7 +187,8 @@
             <!-- Left Side Info -->
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -184,7 +204,7 @@
                     android:id="@+id/tv_total_owner_earnings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Total Earnings (Owner): [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -193,6 +213,7 @@
                     android:id="@+id/tv_rating_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:text="Rating: [Value]"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -202,14 +223,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:background="@color/light_blue"
-        android:gravity="center"
-        android:layout_gravity="bottom">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center">
+
 
         <!-- Home Button -->
         <LinearLayout
@@ -221,12 +243,13 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/home"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/dark_blue"/>
         </LinearLayout>
 
         <!-- Bookings Button -->
@@ -239,13 +262,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bookings"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:onClick="onNavigateDriverBookingList"/>
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/booking"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
+                android:onClick="onNavigateBookingList"/>
         </LinearLayout>
 
         <!-- Notifications Button -->
@@ -258,13 +282,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/notification"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
                 android:onClick="onNavigateNotificationList"/>
+
         </LinearLayout>
 
         <!-- User Button -->
@@ -277,13 +303,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
                 android:onClick="onNavigateUserProfile"/>
+
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

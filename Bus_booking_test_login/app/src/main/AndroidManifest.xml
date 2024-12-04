@@ -67,6 +67,10 @@
         <activity android:name=".ui.ActivityDriverHome"/>
         <activity android:name=".ui.ActivityDriverBookingList"/>
         <activity android:name=".ui.ActivityOwnerHome"/>
+        <activity android:name=".ui.ActivityDriverProfile"/>
+        <activity android:name=".ui.ActivityOwnerProfile"/>
+        <activity android:name=".ui.ActivityEditDriverProfile"/>
+        <activity android:name=".ui.ActivityEditOwnerProfile"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

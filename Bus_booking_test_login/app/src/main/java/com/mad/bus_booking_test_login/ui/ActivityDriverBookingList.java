@@ -41,6 +41,13 @@ public class ActivityDriverBookingList extends AppCompatActivity {
         startActivity(navigate_home);
     }
 
+    public void onNavigateUserProfile(View view){
+        Intent navigate_profile = new Intent(this, ActivityUserProfile.class);
+        navigate_profile.putExtra("name", name);
+        navigate_profile.putExtra("user_id", userId);
+        startActivity(navigate_profile);
+    }
+
     private void getBookingsFromUserId(String userId) {
         Cursor cursor = booking.getUpcomingBookings();
         driverBookingAdapter = new DriverBookingAdapter(this, cursor);

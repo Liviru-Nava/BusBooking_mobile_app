@@ -1,22 +1,26 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Gradient Section at the Top -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/gradient_background"
+        android:layout_height="0dp"
+        android:background="@drawable/top_gradient_rounded"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:gravity="center"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_percent="0.2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Upcoming Trips"
+            android:text="Booking Summary"
             android:layout_marginTop="15dp"
             android:textSize="24sp"
             android:textColor="#FFFFFF"
@@ -28,20 +32,24 @@
         android:id="@+id/recyclerViewDriverBookings"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/linearLayout"
         android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@id/linearLayout"
         android:clipToPadding="false"
-        android:padding="16dp" />
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="0dp" />
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="@color/light_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center">
+
 
         <!-- Home Button -->
         <LinearLayout
@@ -53,12 +61,13 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/home"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
                 android:onClick="onNavigateHome"/>
         </LinearLayout>
 
@@ -72,31 +81,36 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bookings"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/booking"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/dark_blue"
+                android:onClick="onNavigateBookingList"/>
         </LinearLayout>
 
-        <!-- Notifications Button -->
-        <LinearLayout
-            android:id="@+id/nav_notifications"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/light_blue"
-            android:gravity="center"
-            android:orientation="vertical">
+                <!-- Notifications Button -->
+                <LinearLayout
+                    android:id="@+id/nav_notifications"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/light_blue"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/notification"
+                        app:tint="@color/white"
+                        android:scaleType="centerInside"
+                        android:backgroundTint="@color/light_blue"
+                        android:onClick="onNavigateNotificationList"/>
+
+                </LinearLayout>
 
         <!-- User Button -->
         <LinearLayout
@@ -108,12 +122,15 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                app:tint="@color/white"
+                android:scaleType="centerInside"
+                android:backgroundTint="@color/light_blue"
+                android:onClick="onNavigateUserProfile"/>
+
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

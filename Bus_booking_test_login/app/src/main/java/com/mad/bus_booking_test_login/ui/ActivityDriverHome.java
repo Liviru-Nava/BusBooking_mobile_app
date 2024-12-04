@@ -37,7 +37,7 @@ public class ActivityDriverHome extends AppCompatActivity {
         getDriverStatistics(userId);
     }
 
-    public void onNavigateDriverBookingList(View view){
+    public void onNavigateBookingList(View view){
         Intent navigate_booking_list = new Intent(this, ActivityDriverBookingList.class);
         navigate_booking_list.putExtra("user_id", userId);
         navigate_booking_list.putExtra("name", name);
@@ -45,7 +45,7 @@ public class ActivityDriverHome extends AppCompatActivity {
     }
 
     public void onNavigateUserProfile(View view){
-        Intent navigate_user_profile = new Intent(this, ActivityUserProfile.class);
+        Intent navigate_user_profile = new Intent(this, ActivityDriverProfile.class);
         navigate_user_profile.putExtra("user_id", userId);
         navigate_user_profile.putExtra("name", name);
         Log.e("Passed User_id", userId);
